@@ -1,8 +1,27 @@
+# ------------ import statements
 import socket
-import magnetometer
+import hmc5883l
 
+# ------------ variables
 HOST, PORT = '', 8080
+magnetometer = hmc5883l()
 
+# ------------ methods
+# TODO : Implement this methods
+# returns the current x magnetometer reading
+def GetX():
+    return 'X'
+
+# returns the current y magnetometer reading
+def GetY():
+    return 'Y'
+
+# returns the current z magnetometer reading
+def GetZ():
+    return 'Z'
+
+
+# ------------ main code
 listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((HOST, PORT))
@@ -16,13 +35,12 @@ while True:
 
 		http_response = "HTTP/1.1 200 OK" + "\n\n"
 		http_response += "<h1>Satellite Monitoring System</h1>" + "\n"
-		http_response += "X : " + magnetometer.GetX() + "</br>"
-		http_response += "Y : " + magnetometer.GetY() + "</br>"
-		http_response += "Z : " + magnetometer.GetZ() + "</br>"
+		http_response += "X : " + GetX() + "</br>"
+		http_response += "Y : " + GetY() + "</br>"
+		http_response += "Z : " + GetZ() + "</br>"
 
-		print http_response 
-
-		client_connection.sendall(http_response)
+		
+                client_connection.sendall(http_response)
 		client_connection.close()
 	except KeyboardInterrupt:
 		break
