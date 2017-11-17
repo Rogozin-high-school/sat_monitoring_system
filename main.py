@@ -4,7 +4,7 @@ import hmc5883l
 
 # ------------ variables
 HOST, PORT = '', 8080
-magnetometer = hmc5883l()
+magnetometer = hmc5883l.hmc5883l()
 
 # ------------ methods
 # TODO : Implement this methods
