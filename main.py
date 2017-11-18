@@ -11,21 +11,21 @@ f = open('log', 'a+')
 LOG_DELAY_MS = 500
     
 # ------------ methods
-# TODO : Implement this methods
-# writes data to the log file
+# TODO : Implement these methods
+# Writes data to the log file
 def write_to_log(text):
-    currentTime = time.strftime("%d/%m/%Y:%H:%M:%S")
-    f.write(currentTime + '|' + text + '\n')
+    current_time = time.strftime("%d/%m/%Y:%H:%M:%S")
+    f.write(current_time + '|' + text + '\n')
 
-# returns the current x magnetometer reading
+# Returns the current x magnetometer reading
 def get_x():
     return 'X'
 
-# returns the current y magnetometer reading
+# Returns the current y magnetometer reading
 def get_y():
     return 'Y'
 
-# returns the current z magnetometer reading
+# Returns the current z magnetometer reading
 def get_z():
     return 'Z'
 
@@ -46,10 +46,10 @@ def logging_thread(delay):
 
 
 # ------------ main code
-# start logging thread
+# Start the logging thread
 thread.start_new_thread(logging_thread, (LOG_DELAY_MS,))
 
-# start http server
+# Start the http server
 listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((HOST, PORT))
