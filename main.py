@@ -42,6 +42,7 @@ def loggingThread(delay):
             print("Logged data")
             time.sleep(delay/1000.0)
         except KeyboardInterrupt:
+            f.close()
             break
 
 
@@ -72,6 +73,7 @@ while True:
         client_connection.sendall(http_response)
         client_connection.close()
     except KeyboardInterrupt:
+        f.close()
         break
 
 print "Ending server"
