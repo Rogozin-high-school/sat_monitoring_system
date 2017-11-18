@@ -11,34 +11,34 @@ f = open('log', 'a+')
 LOG_DELAY_MS = 500
     
 # ------------ methods
-# TODO : Implement this methods
-# writes data to the log file
-def WriteToLog(text):
-    currentTime = time.strftime("%d/%m/%Y:%H:%M:%S")
-    f.write(currentTime + '|' + text + '\n')
+# TODO : Implement these methods
+# Writes data to the log file
+def write_to_log(text):
+    current_time = time.strftime("%d/%m/%Y:%H:%M:%S")
+    f.write(current_time + '|' + text + '\n')
 
-# returns the current x magnetometer reading
-def GetX():
+# Returns the current x magnetometer reading
+def get_x():
     return 'X'
 
-# returns the current y magnetometer reading
-def GetY():
+# Returns the current y magnetometer reading
+def get_y():
     return 'Y'
 
-# returns the current z magnetometer reading
-def GetZ():
+# Returns the current z magnetometer reading
+def get_z():
     return 'Z'
 
 
 # ------------ thread
 # this other thread will create a log file
-def loggingThread(delay):
+def logging_thread(delay):
     while True:
         try:
-            ValueX = GetX()
-            ValueY = GetY()
-            ValueZ = GetZ()
-            WriteToLog('X:' + GetX() + ' Y:' + GetY() + ' Z:' + GetZ())
+            value_x = get_x()
+            value_y = get_y()
+            value_z = get_z()
+            write_to_log('X:' + get_x() + ' Y:' + get_y() + ' Z:' + get_z())
             print("Logged data")
             time.sleep(delay/1000.0)
         except KeyboardInterrupt:
@@ -47,10 +47,10 @@ def loggingThread(delay):
 
 
 # ------------ main code
-# start logging thread
-thread.start_new_thread(loggingThread, (LOG_DELAY_MS,))
+# Start the logging thread
+thread.start_new_thread(logging_thread, (LOG_DELAY_MS,))
 
-# start http server
+# Start the http server
 listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((HOST, PORT))
@@ -65,9 +65,9 @@ while True:
 
         http_response = "HTTP/1.1 200 OK" + "\n\n"
         http_response += "<h1>Satellite Monitoring System</h1>" + "\n"
-        http_response += "X : " + GetX() + "</br>"
-        http_response += "Y : " + GetY() + "</br>"
-        http_response += "Z : " + GetZ() + "</br>"
+        http_response += "X : " + get_x() + "</br>"
+        http_response += "Y : " + get_y() + "</br>"
+        http_response += "Z : " + get_z() + "</br>"
 
         
         client_connection.sendall(http_response)
