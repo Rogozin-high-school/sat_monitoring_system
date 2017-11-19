@@ -1,12 +1,12 @@
 # ------------ import statements
 import socket
-import hmc5883l
+# import hmc5883l
 import time
 import thread
 
 # ------------ variables
 HOST, PORT = '', 8080
-magnetometer = hmc5883l.hmc5883l()
+# magnetometer = hmc5883l.hmc5883l()
 f = open('log', 'a+')
 LOG_DELAY_MS = 500
     
@@ -14,8 +14,9 @@ LOG_DELAY_MS = 500
 # TODO : Implement these methods
 # Writes data to the log file
 def write_to_log(text):
-    current_time = time.strftime("%d/%m/%Y:%H:%M:%S")
+    current_time = time.strftime("%d/%m/%Y-%H:%M:%S")
     f.write(current_time + '|' + text + '\n')
+    f.flush()
 
 # Returns the current x magnetometer reading
 def get_x():
@@ -39,7 +40,6 @@ def logging_thread(delay):
             value_y = get_y()
             value_z = get_z()
             write_to_log('X:' + get_x() + ' Y:' + get_y() + ' Z:' + get_z())
-            print("Logged data")
             time.sleep(delay/1000.0)
         except KeyboardInterrupt:
             f.close()
@@ -61,13 +61,20 @@ while True:
     try :
         client_connection, client_address = listen_socket.accept()
         request = client_connection.recv(1024)
-        print request
-
+        path = request.split(' ')[1][1:]
+        print path
         http_response = "HTTP/1.1 200 OK" + "\n\n"
-        http_response += "<h1>Satellite Monitoring System</h1>" + "\n"
-        http_response += "X : " + get_x() + "</br>"
-        http_response += "Y : " + get_y() + "</br>"
-        http_response += "Z : " + get_z() + "</br>"
+        if path == "log":
+            # prints the log
+            print f
+            for line in f:
+                print line
+                http_response += line
+        elif path == "measure":
+            # return the current measurments
+            http_response += "X : " + get_x() + "\n"
+            http_response += "Y : " + get_y() + "\n"
+            http_response += "Z : " + get_z() + "\n"
 
         
         client_connection.sendall(http_response)
