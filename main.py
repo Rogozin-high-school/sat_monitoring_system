@@ -1,12 +1,12 @@
 # ------------ import statements
 import socket
-# import hmc5883l
+import hmc5883l
 import time
 import thread
 
 # ------------ variables
 HOST, PORT = '', 8080
-# magnetometer = hmc5883l.hmc5883l()
+magnetometer = hmc5883l.hmc5883l()
 f = open('log', 'a+')
 LOG_DELAY_MS = 500
     
