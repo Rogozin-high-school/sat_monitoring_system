@@ -5,13 +5,20 @@ import threading
 
 # ------------ local import statements
 import config
-import hmc5883l
 
 # ------------ variables
-magnetometer = hmc5883l.hmc5883l()
+magnetometer = None
 log_lock = threading.Lock()
 magnetometer_lock = threading.Lock()
 should_log = True
+
+# ------------ magnetometer
+# if the machine has the sensor attached the load the libraries
+# running this code without the sensor will crash the program
+load_sensor = raw_input('Do you have a magnetometer attached (y/n) :') == 'y'
+if load_sensor:
+    import hmc5883l
+    magnetometer = hmc5883l.hmc5883l()
 
 # ------------ methods
 # TODO : Implement these methods
