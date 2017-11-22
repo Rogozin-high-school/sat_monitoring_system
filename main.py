@@ -58,6 +58,10 @@ class log_thread(threading.Thread):
     def run(self):
         while should_log:
             try:
+                value_x = None
+                value_y = None
+                value_z = None
+                
                 # reading data from the magnetometer
                 with magnetometer_lock:
                     value_x = get_x()
@@ -66,7 +70,8 @@ class log_thread(threading.Thread):
                 
                 # writing to the log file
                 with log_lock:
-                    write_to_log('X:' + get_x() + ' Y:' + get_y() + ' Z:' + get_z())
+                    write_to_log('X:' + value_x + ' Y:' + value_y + ' Z:' + value_z)
+                
                 time.sleep(config.LOG_INTERVAL_MS/1000.0)
             except KeyboardInterrupt:
                 break
@@ -110,9 +115,9 @@ while True:
             elif path == "measure":
                 # writes the current measurments to the http_response
                 with magnetometer_lock :
-                    http_response += "X : " + get_x() + "</br>"
-                    http_response += "Y : " + get_y() + "</br>"
-                    http_response += "Z : " + get_z() + "</br>"
+                    http_response += "{'X':" + get_x() + ","
+                    http_response += "'Y':" + get_y() + ","
+                    http_response += "'Z':" + get_z() + "}"
             elif path == "live":
                 data_file = open('live.html', 'r')
                 http_response += ''.join(data_file.readlines())
