@@ -14,10 +14,10 @@
 				var val="";
                 var raw = httpRequest("measure");
                 var arr = JSON.parse(raw);
-				for(i=0;i<arr.length;i++)
-				{
-					val+=arr[i]+"<br/>";
-				}
+				var keys = Object.keys(arr)
+				keys.forEach(function(element){
+					val+=arr[element];
+				});
 				document.getElementById("element").innerHTML=val;
             }
             setInterval(loop,1000);
