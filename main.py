@@ -5,20 +5,13 @@ import threading
 
 # ------------ local import statements
 import config
+import magnetometer
 
 # ------------ variables
-magnetometer = None
+sensor = magnetometer.magnetometer()
 log_lock = threading.Lock()
 magnetometer_lock = threading.Lock()
 should_log = True
-
-# ------------ magnetometer
-# if the machine has the sensor attached the load the libraries
-# running this code without the sensor will crash the program
-load_sensor = raw_input('Do you have a magnetometer attached (y/n) : ') == 'y'
-if load_sensor:
-    import hmc5883l
-    magnetometer = hmc5883l.hmc5883l()
 
 # ------------ methods
 # TODO : Implement these methods
@@ -36,19 +29,6 @@ def read_from_log():
     f.close()
     return data
 
-# Returns the current x magnetometer reading
-def get_x():
-    return 'X'
-
-# Returns the current y magnetometer reading
-def get_y():
-    return 'Y'
-
-# Returns the current z magnetometer reading
-def get_z():
-    return 'Z'
-
-
 # ------------ thread
 # this other thread will create a log file
 class log_thread(threading.Thread):
@@ -64,13 +44,13 @@ class log_thread(threading.Thread):
                 
                 # reading data from the magnetometer
                 with magnetometer_lock:
-                    value_x = get_x()
-                    value_y = get_y()
-                    value_z = get_z()
+                    value_x = sensor.get_x()
+                    value_y = sensor.get_y()
+                    value_z = sensor.get_z()
                 
                 # writing to the log file
                 with log_lock:
-                    write_to_log('X:' + value_x + ' Y:' + value_y + ' Z:' + value_z)
+                    write_to_log('X:' + str(value_x) + ' Y:' + str(value_y) + ' Z:' + str(value_z))
                 
                 time.sleep(config.LOG_INTERVAL_MS/1000.0)
             except KeyboardInterrupt:
@@ -115,9 +95,9 @@ while True:
             elif path == "measure":
                 # writes the current measurments to the http_response
                 with magnetometer_lock :
-                    http_response += "{'X':" + get_x() + ","
-                    http_response += "'Y':" + get_y() + ","
-                    http_response += "'Z':" + get_z() + "}"
+                    http_response += "'X':" + str(sensor.get_x()) + ","
+                    http_response += "'Y':" + str(sensor.get_y()) + ","
+                    http_response += "'Z':" + str(sensor.get_z())
             elif path == "live":
                 data_file = open('live.html', 'r')
                 http_response += ''.join(data_file.readlines())
