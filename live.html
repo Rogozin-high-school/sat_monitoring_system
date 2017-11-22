@@ -8,7 +8,7 @@
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send(null);
                 return xmlhttp.responseText;
-            }
+			}
             function loop()
             {
 				var val="";
@@ -21,6 +21,8 @@
 				document.getElementById("element").innerHTML=val;
             }
             setInterval(loop,1000);
+
+            setInterval(document.write(httpRequest("/measure")),1000);
 		</script>
 	</head>
 
