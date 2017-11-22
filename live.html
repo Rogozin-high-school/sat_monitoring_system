@@ -1,6 +1,7 @@
     <html>
 	<head>
-		<script>
+        <div id="element"></div>
+		<script type='text/javascript'>
             function httpRequest(url)
             {
                 var xmlhttp = new XMLHttpRequest();
@@ -8,7 +9,18 @@
                 xmlhttp.send(null);
                 return xmlhttp.responseText;
             }
-            setInterval(document.write(httpRequest("localhost:8080/measure")),1000);
+            function loop()
+            {
+				var val="";
+                var raw = httpRequest("measure");
+                var arr = JSON.parse(raw);
+				for(i=0;i<arr.length;i++)
+				{
+					val+=arr[i]+"<br/>";
+				}
+				document.getElementById("element").innerHTML=val;
+            }
+            setInterval(loop,1000);
 		</script>
 	</head>
 
