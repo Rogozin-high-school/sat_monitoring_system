@@ -1,7 +1,14 @@
-<html>
+    <html>
 	<head>
 		<script>
-			alert('Hello world !');
+            function httpRequest(url)
+            {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", url, false);
+                xmlhttp.send(null);
+                return xmlhttp.responseText;
+            }
+            setInterval(document.write(httpRequest("live.html")),1000);
 		</script>
 	</head>
 
