@@ -69,6 +69,10 @@ class log_thread(threading.Thread):
 
 
 # ------------ main code
+# making sure the log file exists
+f = open('log', 'w+')
+f.close()
+
 # Start the logging thread
 thread = log_thread()
 thread.start()
@@ -88,19 +92,24 @@ while True:
         request_split = request.split(' ')
         if len(request_split) > 1:
             path = request_split[1][1:]
-            http_response = "HTTP/1.1 200 OK" + "\n\n"
+            # http header
+            http_response = "HTTP/1.1 200 OK\n"
+            http_response += "Content-Type: text/html\n"
+            http_response += "Connection: close\n"
+            http_response += "\n"
+            
             if path == "log":
                 # writes the log to the http_response
                 log_lock.acquire()
                 for line in read_from_log():
-                    http_response += line
+                    http_response += line + "</br>"
                 log_lock.release()
             elif path == "measure":
                 # writes the current measurments to the http_response
                 magnetometer_lock.acquire()
-                http_response += "X : " + get_x() + "\n"
-                http_response += "Y : " + get_y() + "\n"
-                http_response += "Z : " + get_z() + "\n"
+                http_response += "X : " + get_x() + "</br>"
+                http_response += "Y : " + get_y() + "</br>"
+                http_response += "Z : " + get_z() + "</br>"
                 magnetometer_lock.release()
             else :
                 http_response += "Command unknown\n"
