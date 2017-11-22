@@ -13,20 +13,23 @@
             {
 				var val="";
                 var raw = httpRequest("measure");
+				alert(raw);
                 var arr = JSON.parse(raw);
 				var keys = Object.keys(arr)
+				alert(keys);
 				keys.forEach(function(element){
 					val+=arr[element];
+					alert(val);
 				});
 				document.getElementById("element").innerHTML=val;
+				
             }
             setInterval(loop,1000);
 
-            setInterval(document.write(httpRequest("/measure")),1000);
+            //setInterval(document.write(httpRequest("/measure")),1000);
 		</script>
 	</head>
 
 	<body>
-		<h1>Hello world !</h1>
 	</body>
 </html>
