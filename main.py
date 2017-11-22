@@ -1,12 +1,11 @@
 # ------------ import statements
 import socket
-import hmc5883l
 import time
 import threading
 
 # ------------ local import statements
 import config
-
+import hmc5883l
 
 # ------------ variables
 magnetometer = hmc5883l.hmc5883l()
@@ -111,8 +110,11 @@ while True:
                 http_response += "Y : " + get_y() + "</br>"
                 http_response += "Z : " + get_z() + "</br>"
                 magnetometer_lock.release()
+            elif path == "live":
+                data_file = open('live.html', 'r')
+                http_response += ''.join(data_file.readlines())
             else :
-                http_response += "Command unknown\n"
+                http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
 
             client_connection.sendall(http_response)
