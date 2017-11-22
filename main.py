@@ -4,12 +4,12 @@ import hmc5883l
 import time
 import threading
 
+# ------------ local import statements
+import config
 
 
 # ------------ variables
-HOST, PORT = '', 8080
 magnetometer = hmc5883l.hmc5883l()
-LOG_DELAY_MS = 1000
 log_lock = threading.Lock()
 magnetometer_lock = threading.Lock()
 should_log = True
@@ -63,7 +63,7 @@ class log_thread(threading.Thread):
                 log_lock.acquire()
                 write_to_log('X:' + get_x() + ' Y:' + get_y() + ' Z:' + get_z())
                 log_lock.release()
-                time.sleep(LOG_DELAY_MS/1000.0)
+                time.sleep(config.LOG_INTERVAL_MS/1000.0)
             except KeyboardInterrupt:
                 break
 
@@ -76,9 +76,9 @@ thread.start()
 # Start the http server
 listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-listen_socket.bind((HOST, PORT))
+listen_socket.bind((config.HTTP_HOST, config.HTTP_PORT))
 listen_socket.listen(1)
-print 'Serving HTTP on port %s ...' % PORT
+print 'Serving HTTP on port %s ...' % config.HTTP_PORT
 
 while True:
     try :
