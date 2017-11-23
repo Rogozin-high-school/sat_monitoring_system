@@ -1,48 +1,41 @@
     <html>
-	<head>
-        <div id="element"></div>
-		<script type='text/javascript'>
-            function httpRequest(url)
-            {
+    <head>
+        <script type='text/javascript'>
+
+            function httpRequest(url) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send(null);
                 return xmlhttp.responseText;
-			}
-			function Parse(raw){
-				var temp=[];
-				var arr = raw.split(",");
-				for(i=0;i<arr.length;i++)
-				{
-					var arr1 = arr[i].split(":");
-					temp[temp.length] = arr1;
-				}
-				return temp;
-			}
-            function loop()
-            {
-				var val="";
-                var raw = httpRequest("measure");
-				raw = raw.replace("{","");
-				raw = raw.replace("}","");
-                var arr = Parse(raw);
-				/*for(i=0;i<arr.length/2;i++)
-				{
-					val+=arr[i*2+1]+":"+(i*2+1)+"</br>";
-				}*/
-				arr.forEach(function(element){
-					val+=element[1]+"<br/>";
-					//alert(val);
-				});
-				document.getElementById("element").innerHTML=val;
-				
             }
+
+            function parse(raw) {
+                var temp = [];
+                var arr = raw.split(",");
+                for(var i = 0; i < arr.length; i++) {
+                    var arr1 = arr[i].split(":");
+                    temp[temp.length] = arr1;
+                }
+                return temp;
+            }
+
+            function loop() {
+                var val = "";
+                var raw = httpRequest("measure");
+                raw = raw.replace("{", "");
+                raw = raw.replace("}", "");
+                var arr = parse(raw);
+                arr.forEach((element) => {
+                    val += element[1] + "<br/>";
+                });
+                document.getElementById("element").innerHTML = val;
+            }
+
             setInterval(loop,1000);
+        </script>
+    </head>
 
-            //setInterval(document.write(httpRequest("/measure")),1000);
-		</script>
-	</head>
-
-	<body>
-	</body>
+    <body>
+        <div id="element"></div>
+    </body>
 </html>
