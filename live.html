@@ -9,17 +9,30 @@
                 xmlhttp.send(null);
                 return xmlhttp.responseText;
 			}
+			function Parse(raw){
+				var temp=[];
+				var arr = raw.split(",");
+				for(i=0;i<arr.length;i++)
+				{
+					var arr1 = arr[i].split(":");
+					temp[temp.length] = arr1;
+				}
+				return temp;
+			}
             function loop()
             {
 				var val="";
                 var raw = httpRequest("measure");
-				alert(raw);
-                var arr = JSON.parse(raw);
-				var keys = Object.keys(arr)
-				alert(keys);
-				keys.forEach(function(element){
-					val+=arr[element];
-					alert(val);
+				raw = raw.replace("{","");
+				raw = raw.replace("}","");
+                var arr = Parse(raw);
+				/*for(i=0;i<arr.length/2;i++)
+				{
+					val+=arr[i*2+1]+":"+(i*2+1)+"</br>";
+				}*/
+				arr.forEach(function(element){
+					val+=element[1]+"<br/>";
+					//alert(val);
 				});
 				document.getElementById("element").innerHTML=val;
 				
