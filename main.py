@@ -1,19 +1,16 @@
 # ------------ Import statements
-import threading
 import socket
 
 # ------------ Local import statements
-import magnetometer
+import magnetometerMT
 import log_thread
 import config
 import log
 
 # ------------ Variables & Objects
-log_lock = threading.Lock()
-magnetometer_lock = threading.Lock()
-magnetometer = magnetometer.magnetometer()
+magnetometer = magnetometerMT.magnetometerMT()
 log = log.log()
-log_thread = log_thread.log_thread(magnetometer_lock, log_lock, magnetometer, log)
+log_thread = log_thread.log_thread(magnetometer, log)
 
 # ------------ main code
 # Starting logger thread
@@ -44,15 +41,13 @@ while True:
             
             if path == "log":
                 # writes the log to the http_response
-                with log_lock:
-                    for line in log.read_from_log():
-                        http_response += line + "</br>"
+                for line in log.read_from_log():
+                    http_response += line + "</br>"
             elif path == "measure":
                 # writes the current measurments to the http_response
-                with magnetometer_lock :
-                    http_response += "'X':" + str(magnetometer.get_x()) + ","
-                    http_response += "'Y':" + str(magnetometer.get_y()) + ","
-                    http_response += "'Z':" + str(magnetometer.get_z())
+                http_response += "'X':" + str(magnetometer.get_x()) + ","
+                http_response += "'Y':" + str(magnetometer.get_y()) + ","
+                http_response += "'Z':" + str(magnetometer.get_z())
             elif path == "live":
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())

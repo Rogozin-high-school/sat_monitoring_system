@@ -5,10 +5,8 @@ import config
 
 # This thread will create a log file and update it
 class log_thread(threading.Thread):
-    def __init__(self, magnetometer_lock, log_lock, magnetometer, log):
+    def __init__(self, magnetometer, log):
         threading.Thread.__init__(self)
-        self.magnetometer_lock = magnetometer_lock
-        self.log_lock = log_lock
         self.should_log = True
         self.magnetometer = magnetometer
         self.log = log
@@ -17,14 +15,12 @@ class log_thread(threading.Thread):
         while self.should_log:
             try:
                 axes = None
-                
-                # Reading data from the magnetometer
-                with self.magnetometer_lock:
-                    axes = self.magnetometer.get_axes()
+
+                # Reading the axes data
+                axes = self.magnetometer.axes()
                 
                 # Writing to the log file
-                with self.log_lock:
-                    self.log.write_to_log('X:' + str(axes[0]) + ' Y:' + str(axes[1]) + ' Z:' + str(axes[2]))
+                self.log.write_to_log('X:' + str(axes[0]) + ' Y:' + str(axes[1]) + ' Z:' + str(axes[2]))
                 
                 time.sleep(config.LOG_INTERVAL_MS/1000.0)
             except KeyboardInterrupt:

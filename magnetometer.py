@@ -4,6 +4,8 @@ class magnetometer:
     def __init__(self):
         self.ron = True
 
+    # ALL OF THESE METHODS SHOULD NOT BE USED ANYWHERE
+    # EXCEPT FOR THE magnetomterMT CLASS !!!
     def get_x(self):
         return random.randint(0,100)/100.0
 
