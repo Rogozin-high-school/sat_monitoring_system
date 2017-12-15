@@ -15,7 +15,7 @@ class log:
     def write_to_log(self, text):
         with self.lock:
             current_time = time.strftime("%d/%m/%Y-%H:%M:%S")
-            f = open(config.LOG_FILE_NAME, 'a+')
+            f = open(config.LOG_FILE_NAME, 'a')
             f.write(current_time + '|' + text + '\n')
             f.flush()
             f.close()
@@ -24,7 +24,7 @@ class log:
     def read_from_log(self):
         data = None
         with self.lock:    
-            f=open(config.LOG_FILE_NAME, 'r+')
+            f=open(config.LOG_FILE_NAME, 'r')
             data = f.readlines()
             f.close()
         return data
