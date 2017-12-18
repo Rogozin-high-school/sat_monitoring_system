@@ -1,6 +1,6 @@
     <html>
 	<head>
-        <div id="element"></div>
+        <div id="element"
 		<script type='text/javascript'>
             function httpRequest(url)
             {
@@ -8,41 +8,17 @@
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send(null);
                 return xmlhttp.responseText;
-			}
-			function Parse(raw){
-				var temp=[];
-				var arr = raw.split(",");
-				for(i=0;i<arr.length;i++)
-				{
-					var arr1 = arr[i].split(":");
-					temp[temp.length] = arr1;
-				}
-				return temp;
-			}
+            }
             function loop()
             {
-				var val="";
                 var raw = httpRequest("measure");
-				raw = raw.replace("{","");
-				raw = raw.replace("}","");
-                var arr = Parse(raw);
-				/*for(i=0;i<arr.length/2;i++)
-				{
-					val+=arr[i*2+1]+":"+(i*2+1)+"</br>";
-				}*/
-				arr.forEach(function(element){
-					val+=element[1]+"<br/>";
-					//alert(val);
-				});
-				document.getElementById("element").innerHTML=val;
-				
+                arr = JSON.de
             }
-            setInterval(loop,1000);
-
-            //setInterval(document.write(httpRequest("/measure")),1000);
+            setInterval(),1000);
 		</script>
 	</head>
 
 	<body>
+		<h1>Hello world !</h1>
 	</body>
 </html>
