@@ -1,24 +1,54 @@
-    <html>
-	<head>
-        <div id="element"
-		<script type='text/javascript'>
-            function httpRequest(url)
-            {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.open("GET", url, false);
-                xmlhttp.send(null);
-                return xmlhttp.responseText;
-            }
-            function loop()
-            {
-                var raw = httpRequest("measure");
-                arr = JSON.de
-            }
-            setInterval(),1000);
-		</script>
-	</head>
+<html>
+    <head>
+        <script type='text/javascript'>
 
-	<body>
-		<h1>Hello world !</h1>
-	</body>
+            function httpRequest(url) {
+                return new Promise((success, error) => {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                success(xmlhttp.responseText);
+                            }
+                            else {
+                                error(xmlhttp.status);
+                            }
+                        }
+                    };
+
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send(null);
+                });
+            }
+
+            function parse(raw) {
+                var temp = [];
+                var arr = raw.split(",");
+                for(var i = 0; i < arr.length; i++) {
+                    var arr1 = arr[i].split(":");
+                    temp[temp.length] = arr1;
+                }
+                return temp;
+            }
+
+            function loop() {
+                var val = "";
+                httpRequest("measure").then((raw) => {;
+                    raw = raw.replace("{", "");
+                    raw = raw.replace("}", "");
+                    var arr = parse(raw);
+                    arr.forEach((element) => {
+                        val += element[1] + "<br/>";
+                    });
+                    document.getElementById("element").innerHTML = val;
+                });
+            }
+
+            setInterval(loop,1000);
+        </script>
+    </head>
+
+    <body>
+        <div id="element"></div>
+    </body>
 </html>
