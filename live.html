@@ -1,7 +1,6 @@
 <html>
     <head>
         <script type='text/javascript'>
-
             function httpRequest(url) {
                 return new Promise((success, error) => {
                     var xmlhttp = new XMLHttpRequest();
@@ -15,12 +14,10 @@
                             }
                         }
                     };
-
                     xmlhttp.open("GET", url, true);
                     xmlhttp.send(null);
                 });
             }
-
             function parse(raw) {
                 var temp = [];
                 var arr = raw.split(",");
@@ -30,7 +27,6 @@
                 }
                 return temp;
             }
-
             function loop() {
                 var val = "";
                 httpRequest("measure").then((raw) => {;
@@ -43,7 +39,6 @@
                     document.getElementById("element").innerHTML = val;
                 });
             }
-
             setInterval(loop,1000);
         </script>
     </head>
