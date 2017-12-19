@@ -1,6 +1,7 @@
 <html>
     <head>
         <script type='text/javascript'>
+            
             //function to set torquer values
             function updateTorquer(dict)
             {
@@ -58,7 +59,17 @@
                     document.getElementById("element").innerHTML = val;*/
                 });
             }
+            function set()
+            {
+                var dict = [];
+                var str = "xyz";
+                str.forEach(function(element){
+                    dict[element] = document.getElementById("set"+element.toUpperCase()).value; 
+                });
+                updateTorquer(dict);
+            }
             setInterval(loop,1000);
+            
         </script>
 
     </head>
@@ -66,6 +77,12 @@
     <body>
         <table><tr><td>X</td><td>Y</td><td>Z</td>></tr>
         <tr><td id='element0'></td><td id='element1'></td><td id='element2'></td></tr></table>
+        <table>
+            <tr><td>X:</td><td><input type='text' id='setX'></td></tr>
+            <tr><td>Y:</td><td><input type='text' id='setY'></td></tr>
+            <tr><td>Z:</td><td><input type='text' id='setZ'></td></tr>
+            <tr><td colspan='2'><input type='button' onclick='send()'></td></tr>
+        </table>
         <div id="element"></div>
     </body>
 </html>
