@@ -46,10 +46,16 @@
                     raw = raw.replace("{", "");
                     raw = raw.replace("}", "");
                     var arr = parse(raw);
-                    arr.forEach((element) => {
-                        val += element[1] + "<br/>";
+                    for(i=0;i<arr.length;i++)
+                    {
+                        val= arr[i][1];
+                        document.getElementById("element"+i.toString());
+                    }
+                    /*arr.forEach((element) => {
+                        val += element[1];
+                        document.getElementById("element"+)
                     });
-                    document.getElementById("element").innerHTML = val;
+                    document.getElementById("element").innerHTML = val;*/
                 });
             }
             setInterval(loop,1000);
@@ -58,6 +64,8 @@
     </head>
 
     <body>
+        <table><tr><td>X</td><td>Y</td><td>Z</td>></tr>
+        <tr><td id='element0'></td><td id='element1'></td><td id='element2'></td></tr></table>
         <div id="element"></div>
     </body>
 </html>
