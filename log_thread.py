@@ -2,14 +2,16 @@
 import threading
 import time
 import config
+import magnetometerMT
+import log
 
 # This thread will create a log file and update it
 class log_thread(threading.Thread):
-    def __init__(self, magnetometer, log):
+    def __init__(self):
         threading.Thread.__init__(self)
         self.should_log = True
-        self.magnetometer = magnetometer
-        self.log = log
+        self.magnetometer = magnetometerMT.magnetometerMT()
+        self.log = log.log(config.LOG_FILE_NAME)
 
     def run(self):
         while self.should_log:

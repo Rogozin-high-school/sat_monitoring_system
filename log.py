@@ -1,14 +1,16 @@
 import time
-import config
 import threading
 
 class log:
-    def __init__(self):
+    def __init__(self, file_name):
         # Initializg the lock object
         self.lock = threading.Lock()
         
+        # Setting the file name
+        self.file_name = file_name
+
         # Making sure the log file exists
-        f = open(config.LOG_FILE_NAME, 'w+')
+        f = open(file_name, 'w+')
         f.close()
 
     # Writes data to the log file
