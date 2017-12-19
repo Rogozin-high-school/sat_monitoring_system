@@ -63,9 +63,8 @@ while True:
             elif path == "live":
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())
-            elif "set" in path:
-                parameters_dict = dict()
-                parameters_list = path.split("&")
+            elif path == "set":
+                
             else :
                 http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
