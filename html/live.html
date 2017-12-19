@@ -1,6 +1,19 @@
 <html>
     <head>
         <script type='text/javascript'>
+            //function to set torquer values
+            function updateTorquer(dict)
+            {
+                var str="";
+                var keys = Object.keys(dict);
+                keys.forEach(function(element){
+                    str+=element+"="+dict[element];
+                });
+                console.log(str);
+                //making the http request to set 
+                httpRequest("set?"+str).then((raw)=>{;});
+                }
+            }
             function httpRequest(url) {
                 return new Promise((success, error) => {
                     var xmlhttp = new XMLHttpRequest();
@@ -41,6 +54,7 @@
             }
             setInterval(loop,1000);
         </script>
+
     </head>
 
     <body>
