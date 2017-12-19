@@ -8,7 +8,9 @@ import config
 import log
 
 # ------------ Variables & Objects
-log_thread = log_thread.log_thread()
+log = log.log(config.LOG_FILE_NAME)
+magnetometer = magnetometerMT.magnetometerMT()
+log_thread = log_thread.log_thread(magnetometer, log)
 
 # ------------ main code
 # Starting logger thread
@@ -25,11 +27,10 @@ while True:
         client_connection, client_address = listen_socket.accept()
         request = client_connection.recv(1024)
         
-        request_split = request.split(' ')
+        request_split = str(request).split(' ')
         if len(request_split) > 1:
-            
             # Processing the request and splitting to path and parameters
-            path_and_paramters = request_split[1][1:].split('?')
+            path_and_parameters = request_split[1][1:].split('?')
             path = path_and_parameters[0]
             parameters = []
             parameters_dict = dict()
@@ -69,7 +70,7 @@ while True:
                 http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
 
-            client_connection.sendall(http_response)
+            client_connection.sendall(http_response.encode())
             client_connection.close()
     except KeyboardInterrupt:
         break
