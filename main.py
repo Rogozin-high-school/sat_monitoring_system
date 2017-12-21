@@ -64,7 +64,7 @@ while True:
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())
             elif path == "set":
-                
+                nothing = 0
             else :
                 http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
