@@ -22,6 +22,8 @@ listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((config.HTTP_HOST, config.HTTP_PORT))
 listen_socket.listen(1)
 
+print("Starting server")
+
 while True:
     try :
         client_connection, client_address = listen_socket.accept()
@@ -64,7 +66,12 @@ while True:
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())
             elif path == "set":
-                nothing = 0
+                implemented = False
+            elif path == "stop":
+                http_response += "Stopping server"
+                client_connection.sendall(http_response.encode())
+                client_connection.close()
+                break
             else :
                 http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
