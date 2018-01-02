@@ -1,7 +1,9 @@
 <html>
     <head>
         <script type='text/javascript'>
-            
+            String.prototype.alert = function(){
+                document.getElementById("error").innerText = this;
+            }
             //function to set torquer values
             function updateTorquer(dict)
             {
@@ -60,15 +62,30 @@
                     });
                     document.getElementById("element").innerHTML = val;*/
                 });
+                httpRequest("get_magnetorquer").then((raw)=>{;
+                    var arr = parse(raw);
+                    for(i=0;i<arr.length;i++)
+                    {
+                        val = arr[i][1];
+                        document.getElementById("torq"+i.toString()).innerText = val;
+                    }
+                });
             }
             function set()
             {
                 var dict = [];
                 var str = ['x','y','z'];
+                var valid = true;
                 str.forEach(function(element){
-                    dict[element] = document.getElementById("set"+element.toUpperCase()).value; 
+                    dict[element] = document.getElementById("set"+element.toUpperCase()).value;
+                    if(parseFloat(dict[element])>1.0||parseFloat(dict[element])<-1.0){ 
+                        "values must be between -1 and 1".alert();
+                        valid  = false;
+                    }
                 });
+                if(valid){
                 updateTorquer(dict);
+                }
             }
             setInterval(loop,1000);
             
@@ -80,12 +97,19 @@
 		<center>
         <table border='2'><tr><td>X</td><td>Y</td><td>Z</td></tr>
         <tr><td id='element0'></td><td id='element1'></td><td id='element2'></td></tr></table>
+        <table><tr><td>
         <table>
             <tr><td>X:</td><td><input type='text' id='setX'></td></tr>
             <tr><td>Y:</td><td><input type='text' id='setY'></td></tr>
             <tr><td>Z:</td><td><input type='text' id='setZ'></td></tr>
             <tr><td colspan='2'><input type='button' onclick='set()' style='width:100%'></td></tr>
         </table>
+        </td>
+        <td><table border='2'><tr><td>X</td><td id ='torq0'></td></tr>
+        <tr><td>Y</td><td id='torq1'></td></tr>
+        <tr><td>Z</td><td id='torq2'></td></tr></table></td>
+        </tr></table>
+        <h4 style='color:red' id='error'></h4>
         <div id="element"></div>
 		</center>
     </body>
