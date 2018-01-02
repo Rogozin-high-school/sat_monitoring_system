@@ -16,17 +16,14 @@ class log:
     # Writes data to the log file
     def write_to_log(self, text):
         with self.lock:
-            current_time = time.strftime("%d/%m/%Y-%H:%M:%S")
-            f = open(self.file_name, 'a')
-            f.write(current_time + '|' + text + '\n')
-            f.flush()
-            f.close()
+            with open(self.file_name, 'a') as f:
+                current_time = time.strftime("%d/%m/%Y-%H:%M:%S")
+                f.write(current_time + '|' + text + '\n')
 
     # Returns the logged data in a list, split by lines
     def read_from_log(self):
         data = None
         with self.lock:    
-            f=open(self.file_name, 'r')
-            data = f.readlines()
-            f.close()
+            with open(self.file_name, 'r') as f:
+                data = f.readlines()
         return data

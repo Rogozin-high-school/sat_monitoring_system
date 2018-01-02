@@ -3,6 +3,7 @@ import socket
 
 # ------------ Local import statements
 import magnetometerMT
+import magnetorquerMT
 import log_thread
 import config
 import log
@@ -10,6 +11,7 @@ import log
 # ------------ Variables & Objects
 log = log.log(config.LOG_FILE_NAME)
 magnetometer = magnetometerMT.magnetometerMT()
+magnetorquer = magnetorquerMT.magnetorquerMT()
 log_thread = log_thread.log_thread(magnetometer, log)
 
 # ------------ main code
@@ -21,6 +23,8 @@ listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listen_socket.bind((config.HTTP_HOST, config.HTTP_PORT))
 listen_socket.listen(1)
+
+print("Starting server")
 
 while True:
     try :
@@ -55,7 +59,7 @@ while True:
                 # writes the log to the http_response
                 for line in log.read_from_log():
                     http_response += line + "</br>"
-            elif path == "measure":
+            elif path == "get_magnetometer":
                 # writes the current measurments to the http_response
                 http_response += "'X':" + str(magnetometer.get_x()) + ","
                 http_response += "'Y':" + str(magnetometer.get_y()) + ","
@@ -63,8 +67,29 @@ while True:
             elif path == "live":
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())
-            elif path == "set":
-                nothing = 0
+            elif path == "set_magnetorquer":
+                # Updates the values stored by the magnetorquer objects
+                if 'x' in parameters_dict:
+                    magnetorquer.set_x(parameters_dict['x'])
+                if 'y' in parameters_dict:
+                    magnetorquer.set_y(parameters_dict['y'])
+                if 'z' in parameters_dict:
+                    magnetorquer.set_z(parameters_dict['z'])
+
+                # Applies those values to the magnetorquer
+                # and changes the force of the field
+                magnetorquer.update()
+            elif path == "get_magnetorquer":
+                # writes the current measurments to the http_response
+                http_response += "'X':" + str(magnetorquer.get_x()) + ","
+                http_response += "'Y':" + str(magnetorquer.get_y()) + ","
+                http_response += "'Z':" + str(magnetorquer.get_z())
+
+            elif path == "stop":
+                http_response += "Stopping server"
+                client_connection.sendall(http_response.encode())
+                client_connection.close()
+                break
             else :
                 http_response += "Command unknown</br>"
                 http_response += "Available commands are 'log' and 'measure'"
