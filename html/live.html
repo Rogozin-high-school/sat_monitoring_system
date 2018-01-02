@@ -12,7 +12,7 @@
                 });
                 console.log(str);
                 //making the http request to set 
-                httpRequest("set?"+str).then((raw)=>{;});
+                httpRequest("set_magnetorquer?"+str).then((raw)=>{;});
             }
             function httpRequest(url) {
                 return new Promise((success, error) => {
@@ -42,7 +42,7 @@
             }
             function loop() {
                 var val = "";
-                httpRequest("measure").then((raw) => {;
+                httpRequest("get_magnetometer").then((raw) => {;
                     raw = raw.replace("{", "");
                     raw = raw.replace("}", "");
                     var arr = parse(raw);

@@ -3,6 +3,7 @@ import socket
 
 # ------------ Local import statements
 import magnetometerMT
+import magnetorquerMT
 import log_thread
 import config
 import log
@@ -10,6 +11,7 @@ import log
 # ------------ Variables & Objects
 log = log.log(config.LOG_FILE_NAME)
 magnetometer = magnetometerMT.magnetometerMT()
+magnetorquer = magnetorquerMT.magnetorquerMT()
 log_thread = log_thread.log_thread(magnetometer, log)
 
 # ------------ main code
@@ -57,7 +59,7 @@ while True:
                 # writes the log to the http_response
                 for line in log.read_from_log():
                     http_response += line + "</br>"
-            elif path == "measure":
+            elif path == "get_magnetometer":
                 # writes the current measurments to the http_response
                 http_response += "'X':" + str(magnetometer.get_x()) + ","
                 http_response += "'Y':" + str(magnetometer.get_y()) + ","
@@ -65,8 +67,24 @@ while True:
             elif path == "live":
                 data_file = open(config.LIVE_DISPLAY_FILE_NAME, 'r')
                 http_response += ''.join(data_file.readlines())
-            elif path == "set":
-                implemented = False
+            elif path == "set_magnetorquer":
+                # Updates the values stored by the magnetorquer objects
+                if 'x' in parameters_dict:
+                    magnetorquer.set_x(parameters_dict['x'])
+                if 'y' in parameters_dict:
+                    magnetorquer.set_y(parameters_dict['y'])
+                if 'z' in parameters_dict:
+                    magnetorquer.set_z(parameters_dict['z'])
+
+                # Applies those values to the magnetorquer
+                # and changes the force of the field
+                magnetorquer.update()
+            elif path == "get_magnetorquer":
+                # writes the current measurments to the http_response
+                http_response += "'X':" + str(magnetorquer.get_x()) + ","
+                http_response += "'Y':" + str(magnetorquer.get_y()) + ","
+                http_response += "'Z':" + str(magnetorquer.get_z())
+
             elif path == "stop":
                 http_response += "Stopping server"
                 client_connection.sendall(http_response.encode())
