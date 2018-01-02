@@ -9,15 +9,6 @@ class magnetorquerMT(magnetorquer.magnetorquer):
     def update(self):
         with self.lock:
             # Update the magnetorquer according to the saved values
-            if(self.get_x() > 1 or self.get_x() < 0):
-                return
-           
-            if(self.get_y() > 1 or self.get_y() < 0):
-                return
-            
-            if(self.get_z() > 1 or self.get_z() < 0):
-                return
-
             self.__update__()
             
 
