@@ -7,6 +7,7 @@ import magnetorquerMT
 import log_thread
 import config
 import log
+import json
 
 # ------------ Variables & Objects
 log = log.log(config.LOG_FILE_NAME)
@@ -69,6 +70,7 @@ while True:
                 http_response += ''.join(data_file.readlines())
             elif path == "set_magnetorquer":
                 # Updates the values stored by the magnetorquer objects
+                print(parameters_dict)
                 if 'x' in parameters_dict:
                     magnetorquer.set_x(parameters_dict['x'])
                 if 'y' in parameters_dict:

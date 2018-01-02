@@ -7,9 +7,12 @@
             {
                 var str="";
                 var keys = Object.keys(dict);
-                keys.forEach(function(element){
-                    str+=element+"="+dict[element];
-                });
+                str+=keys[0]+"="+dict[keys[0]];
+                for(i=1;i<keys.length;i++)
+                {
+                    str+="&";
+                    str+=keys[i]+"="+dict[keys[i]];
+                }
                 console.log(str);
                 //making the http request to set 
                 httpRequest("set_magnetorquer?"+str).then((raw)=>{;});
@@ -61,7 +64,7 @@
             function set()
             {
                 var dict = [];
-                var str = "xyz";
+                var str = ['x','y','z'];
                 str.forEach(function(element){
                     dict[element] = document.getElementById("set"+element.toUpperCase()).value; 
                 });
@@ -81,7 +84,7 @@
             <tr><td>X:</td><td><input type='text' id='setX'></td></tr>
             <tr><td>Y:</td><td><input type='text' id='setY'></td></tr>
             <tr><td>Z:</td><td><input type='text' id='setZ'></td></tr>
-            <tr><td colspan='2'><input type='button' onclick='send()' style='width:100%'></td></tr>
+            <tr><td colspan='2'><input type='button' onclick='set()' style='width:100%'></td></tr>
         </table>
         <div id="element"></div>
 		</center>
