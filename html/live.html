@@ -19,6 +19,7 @@
                 //making the http request to set 
                 httpRequest("set_magnetorquer?"+str).then((raw)=>{;});
             }
+            //function that make assync http request
             function httpRequest(url) {
                 return new Promise((success, error) => {
                     var xmlhttp = new XMLHttpRequest();
@@ -36,6 +37,7 @@
                     xmlhttp.send(null);
                 });
             }
+            //function to parse data from server to array
             function parse(raw) {
                 var temp = [];
                 var arr = raw.split(",");
@@ -45,6 +47,7 @@
                 }
                 return temp;
             }
+            //the function that loops all the time and is responsible for updating magnetometer values
             function loop() {
                 var val = "";
                 httpRequest("get_magnetometer").then((raw) => {;
@@ -54,7 +57,8 @@
                     for(i=0;i<arr.length;i++)
                     {
                         val= arr[i][1];
-                        document.getElementById("element"+i.toString()).innerText = val;
+                        val = parseFloat(val).toFixed(2).toString();
+                        document.getElementById("element"+i.toString()).value = val;
                     }
                     /*arr.forEach((element) => {
                         val += element[1];
@@ -62,15 +66,24 @@
                     });
                     document.getElementById("element").innerHTML = val;*/
                 });
+               
+            }
+            //function that sets text box's values to magnetorquer read
+            function getToruqer()
+            {
+                var val="";
                 httpRequest("get_magnetorquer").then((raw)=>{;
                     var arr = parse(raw);
+                    console.log(arr);
+                    var cords = "XYZ";
                     for(i=0;i<arr.length;i++)
                     {
                         val = arr[i][1];
-                        document.getElementById("torq"+i.toString()).innerText = val;
+                        document.getElementById("set"+cords[i]).value = val;
                     }
                 });
             }
+            //function that sets magnetorquer values in server
             function set()
             {
                 var dict = [];
@@ -84,9 +97,11 @@
                     }
                 });
                 if(valid){
-                updateTorquer(dict);
+                    "".alert();
+                    updateTorquer(dict);
                 }
             }
+            getToruqer();
             setInterval(loop,1000);
             
         </script>
@@ -95,19 +110,21 @@
 
     <body>
 		<center>
-        <table border='2'><tr><td>X</td><td>Y</td><td>Z</td></tr>
-        <tr><td id='element0'></td><td id='element1'></td><td id='element2'></td></tr></table>
-        <table><tr><td>
+        
+        <table style='width:50%'><tr><td align='center'>
         <table>
             <tr><td>X:</td><td><input type='text' id='setX'></td></tr>
             <tr><td>Y:</td><td><input type='text' id='setY'></td></tr>
             <tr><td>Z:</td><td><input type='text' id='setZ'></td></tr>
-            <tr><td colspan='2'><input type='button' onclick='set()' style='width:100%'></td></tr>
+            <tr><td ><input type='button' onclick='set()' style='width:100%' value='set'></td><td><input type='button' onclick="getToruqer()" style='width:100%' value='get'></td></tr>
         </table>
         </td>
-        <td><table border='2'><tr><td>X</td><td id ='torq0'></td></tr>
-        <tr><td>Y</td><td id='torq1'></td></tr>
-        <tr><td>Z</td><td id='torq2'></td></tr></table></td>
+        
+        <td align='center'>
+        <table></table><tr><td>X:</td><td><input type='text' id='element0'></td></tr>
+        <tr><td>Y:</td><td><input type='text' id='element1'></td></tr>
+        <tr><td>Z:</td><td><input type='text' id='element2'></td></tr></table>
+        </td>
         </tr></table>
         <h4 style='color:red' id='error'></h4>
         <div id="element"></div>
