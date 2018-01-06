@@ -1,5 +1,5 @@
 import threading
-
+import pwm
 class magnetorquer:
     def __init__(self):
         self.x = 0
@@ -10,7 +10,9 @@ class magnetorquer:
     # Update the magnetorquer according the saved x,y,z values
     def __update__(self):
         self.implemented = False
-
+        pwm.supply(self.x)
+        pwm.supply(self.y)
+        pwm.supply(self.z)
     # Setters
     def __set_x__(self,x):
         self.x = x
