@@ -132,7 +132,6 @@ class mpu9250(object):
 		y = self.conv(data[2], data[3]) * lsb
 		z = self.conv(data[4], data[5]) * lsb
 
-		print('>> data', data)
 		# ans = self.convv.unpack(*data)
 		# ans = struct.unpack('<hhh', data)[0]
 		# print('func', x, y, z)
