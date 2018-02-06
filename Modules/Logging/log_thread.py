@@ -1,9 +1,9 @@
 # Import statements
 import threading
 import time
-import config
-import magnetometerMT
-import log
+from .. import config
+from ..Magnetometer import magnetometerMT
+from . import log
 
 # This thread will create a log file and update it
 class log_thread(threading.Thread):
@@ -19,7 +19,7 @@ class log_thread(threading.Thread):
                 axes = None
 
                 # Reading the axes data
-                axes = self.magnetometer.axes()
+                axes = self.magnetometer.get_axes()
                 
                 # Writing to the log file
                 self.log.write_to_log('X:' + str(axes[0]) + ' Y:' + str(axes[1]) + ' Z:' + str(axes[2]))

@@ -1,4 +1,4 @@
-import magnetometer
+from . import magnetometer
 import threading
 
 # Just like magnetometer only thread safe

@@ -1,6 +1,6 @@
 from .. import config
 
-if not config.IS_DEBUG:
+if not config.HAS_HARDWARE:
     try:
         import RPi.GPIO as GPIO
     except RuntimeError:

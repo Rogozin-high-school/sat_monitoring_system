@@ -6,11 +6,12 @@ Constants and configuration variables.
 LOG_INTERVAL_MS = 1000
 LOG_FILE_NAME = 'log'
 
-# Other settings
-LIVE_DISPLAY_FILE_NAME = 'Communications/html/live.html'
-IS_DEBUG = True
+# Are we running on the actual hardware ?
+HAS_HARDWARE = True
 
 # Communications Settings
+LIVE_DISPLAY_FILE_NAME = 'Communications/html/live.html'
+
 HTTP_HOST = ""
 HTTP_PORT = 8080
 

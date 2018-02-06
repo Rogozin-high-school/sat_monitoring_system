@@ -1,21 +1,29 @@
-import random
-import mpu9250
+from .. import config
+
+if not config.HAS_HARDWARE:
+    from . import mpu9250
+else:
+    import random
 
 class magnetometer:
     def __init__(self):
-        self.sensor = mpu9250.mpu9250()
+        if not config.HAS_HARDWARE:
+            self.sensor = mpu9250.mpu9250()
 
     # Reading data from magnetometer
     # NOT MULTI THREADING SAFE
     # use magnetometerMT for that
     def __get_x__(self):
-        return str(self.sensor.read_xyz()[0])
+        return str(self.__get_axes__()[0])
 
     def __get_y__(self):
-        return  str(self.sensor.read_xyz()[1])
+        return str(self.__get_axes__()[1])
 
     def __get_z__(self):
-        return str(self.sensor.read_xyz()[2])
+        return str(self.__get_axes__()[2])
 
     def __get_axes__(self):
-        return self.sensor.read_xyz()
+        if not config.HAS_HARDWARE:
+            return self.sensor.read_xyz()
+        else:
+            return (random.uniform(0,1),random.uniform(0,1),random.uniform(0,1))        
