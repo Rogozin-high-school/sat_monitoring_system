@@ -1,14 +1,13 @@
 import random
-from mpu9250.mpu9250 import mpu9250
+import mpu9250
 
 class magnetometer:
     def __init__(self):
-        self.ron = True
-        self.sensor = mpu9250()
+        self.sensor = mpu9250.mpu9250()
 
-
-    # ALL OF THESE METHODS SHOULD NOT BE USED ANYWHERE
-    # EXCEPT FOR THE magnetomterMT CLASS !!!
+    # Reading data from magnetometer
+    # NOT MULTI THREADING SAFE
+    # use magnetometerMT for that
     def __get_x__(self):
         return str(self.sensor.read_xyz()[0])
 

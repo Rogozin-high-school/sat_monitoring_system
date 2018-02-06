@@ -1,2 +1,3 @@
-log
+Modules/Logging/log
 *.pyc
+*/__pychache__

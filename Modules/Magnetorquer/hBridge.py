@@ -1,6 +1,6 @@
-import config
+from .. import config
 
-if config.IS_DEBUG:
+if not config.IS_DEBUG:
     try:
         import RPi.GPIO as GPIO
     except RuntimeError:
