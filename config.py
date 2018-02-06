@@ -2,9 +2,30 @@
 Constants and configuration variables.
 """
 
+# Log file settings
 LOG_INTERVAL_MS = 1000
 LOG_FILE_NAME = 'log'
-LIVE_DISPLAY_FILE_NAME = 'html/live.html'
 
+# Other settings
+LIVE_DISPLAY_FILE_NAME = 'html/live.html'
+IS_DEBUG = True
+
+# Communications Settings
 HTTP_HOST = ""
 HTTP_PORT = 8080
+
+# Magnetorquer port settings
+X_AXIS_H_BRIDGE_DIRECTION_PORT_1 = -1
+X_AXIS_H_BRIDGE_DIRECTION_PORT_2 = -1
+X_AXIS_H_BRIDGE_PWM_PORT_1 = -1
+X_AXIS_H_BRIDGE_PWM_PORT_2 = -1
+
+Y_AXIS_H_BRIDGE_DIRECTION_PORT_1 = -1
+Y_AXIS_H_BRIDGE_DIRECTION_PORT_2 = -1
+Y_AXIS_H_BRIDGE_PWM_PORT_1 = -1
+Y_AXIS_H_BRIDGE_PWM_PORT_2 = -1
+
+Z_AXIS_H_BRIDGE_DIRECTION_PORT_1 = -1
+Z_AXIS_H_BRIDGE_DIRECTION_PORT_2 = -1
+Z_AXIS_H_BRIDGE_PWM_PORT_1 = -1
+Z_AXIS_H_BRIDGE_PWM_PORT_2 = -1
