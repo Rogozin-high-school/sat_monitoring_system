@@ -7,7 +7,7 @@ LOG_INTERVAL_MS = 1000
 LOG_FILE_NAME = 'log'
 
 # Other settings
-LIVE_DISPLAY_FILE_NAME = 'html/live.html'
+LIVE_DISPLAY_FILE_NAME = 'Communications/html/live.html'
 IS_DEBUG = True
 
 # Communications Settings
