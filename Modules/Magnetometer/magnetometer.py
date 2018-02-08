@@ -26,4 +26,4 @@ class magnetometer:
         if not config.HAS_HARDWARE:
             return self.sensor.read_xyz()
         else:
-            return (random.uniform(0,1),random.uniform(0,1),random.uniform(0,1))        
+            return (0,0,0)        
