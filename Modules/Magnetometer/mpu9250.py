@@ -122,7 +122,10 @@ class mpu9250(object):
 		Reads x, y, and z axes at once and turns them into a tuple.
 		"""
 		# data is MSB, LSB, MSB, LSB ...
-		data = self.bus.read_i2c_block_data(address, register, 7)
+                # For some reason when we read 6 bytes we get (0,0,0,0,0,0)
+                # So we changed it to 7 bytes like in an arduino library we found
+                # And not it works, go figure.
+                data = self.bus.read_i2c_block_data(address, register, 7)
 
 		# data = []
 		# for i in range(6):
