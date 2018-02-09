@@ -1,4 +1,4 @@
-import magnetometer
+from . import magnetometer
 import threading
 
 # Just like magnetometer only thread safe
@@ -7,26 +7,26 @@ class magnetometerMT(magnetometer.magnetometer):
         magnetometer.magnetometer.__init__(self)
         self.lock = threading.Lock()
 
-    def x(self):
+    def get_x(self):
         data = None
         with self.lock:
-            data = self.get_x()
+            data = self.__get_x__()
         return data
 
-    def y(self):
+    def get_y(self):
         data = None
         with self.lock:
-            data = self.get_y()
+            data = self.__get_y__()
         return data
 
-    def z(self):
+    def get_z(self):
         data = None
         with self.lock:
-            data = self.get_z()
+            data = self.__get_z__()
         return data
 
-    def axes(self):
+    def get_axes(self):
         data = None
         with self.lock:
-            data = self.get_axes()
+            data = self.__get_axes__()
         return data

@@ -2,11 +2,11 @@
 import socket
 
 # ------------ Local import statements
-import magnetometerMT
-import magnetorquerMT
-import log_thread
-import config
-import log
+from Modules.Magnetometer import magnetometerMT
+from Modules.Magnetorquer import magnetorquerMT
+from Modules.Logging import log_thread
+from Modules.Logging import log
+from Modules import config
 import json
 
 # ------------ Variables & Objects

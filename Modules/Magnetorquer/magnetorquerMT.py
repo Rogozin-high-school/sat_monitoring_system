@@ -1,4 +1,4 @@
-import magnetorquer
+from . import magnetorquer
 import threading
 
 class magnetorquerMT(magnetorquer.magnetorquer):
@@ -11,7 +11,6 @@ class magnetorquerMT(magnetorquer.magnetorquer):
             # Update the magnetorquer according to the saved values
             self.__update__()
             
-
     # Setters
     def set_x(self,x):
         with self.lock:
