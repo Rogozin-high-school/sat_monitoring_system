@@ -9,10 +9,13 @@ When you finished working on your code open a pull request to merge your commits
 When opening your pull request please describe as well as you can what is the purpose of your  
 commits and the purpose of the pull request.
 
-## Running Tests
+## Tests
 When writing a software module please write a test for the module as well.  
 The tests are intended to make sure the software works as intended and handles  
 input correctly.  
+When writing a test plesae add it to the ```Modules/Tests``` folder. When running it please  
+run the following command from the main folder (the one containing ```main.py```) :  
+```python -m Modules.Tests.<test_name_without_extension>```
 
 ## Contribution Guidelines
 Please follow the following guidelines when contributing to our repo.
