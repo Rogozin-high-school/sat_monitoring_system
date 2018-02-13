@@ -13,9 +13,7 @@ commits and the purpose of the pull request.
 When writing a software module please write a test for the module as well.  
 The tests are intended to make sure the software works as intended and handles  
 input correctly.  
-When writing a test plesae add it to the ```Modules/Tests``` folder. When running it please  
-run the following command from the main folder (the one containing ```main.py```) :  
-```python -m Modules.Tests.<test_name_without_extension>```
+Please add the test file to the module's folder so and give it an appropriate name, for example ```unitTest.py```.
 
 ## Contribution Guidelines
 Please follow the following guidelines when contributing to our repo.
