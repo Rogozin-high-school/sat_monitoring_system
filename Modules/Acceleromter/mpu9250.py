@@ -1,12 +1,7 @@
 from __future__ import print_function
 from __future__ import division
 
-try:
-	import smbus2 as smbus
-except ImportError:
-	print('WARNING: Using fake hardware')
-	from .fakeHW import smbus
-	# from fake_rpi import smbus
+import smbus
 
 from time import sleep
 import struct
@@ -19,7 +14,7 @@ import struct
 ################################
 MPU9250_ADDRESS = 0x68
 AK8963_ADDRESS  = 0x0C
-DEVICE_ID       = 0x71
+DEVICE_ID       = 0x73
 WHO_AM_I        = 0x75
 PWR_MGMT_1      = 0x6B
 INT_PIN_CFG     = 0x37
@@ -127,17 +122,19 @@ class mpu9250(object):
 		Reads x, y, and z axes at once and turns them into a tuple.
 		"""
 		# data is MSB, LSB, MSB, LSB ...
-		data = self.bus.read_i2c_block_data(address, register, 6)
+                # For some reason when we read 6 bytes we get (0,0,0,0,0,0)
+                # So we changed it to 7 bytes like in an arduino library we found
+                # And not it works, go figure.
+                data = self.bus.read_i2c_block_data(address, register, 7)
 
 		# data = []
 		# for i in range(6):
 		# 	data.append(self.read8(address, register + i))
 
-		x = self.conv(data[0], data[1]) * lsb
-		y = self.conv(data[2], data[3]) * lsb
-		z = self.conv(data[4], data[5]) * lsb
+		y = self.conv(data[0], data[1])
+		x = self.conv(data[2], data[3])
+		z = self.conv(data[4], data[5])
 
-		print('>> data', data)
 		# ans = self.convv.unpack(*data)
 		# ans = struct.unpack('<hhh', data)[0]
 		# print('func', x, y, z)
@@ -145,7 +142,7 @@ class mpu9250(object):
 
 		return (x, y, z)
 
-	def conv(self, msb, lsb):
+	def conv(self, lsb, msb):
 		"""
 		http://stackoverflow.com/questions/26641664/twos-complement-of-hex-number-in-python
 		"""
@@ -153,7 +150,7 @@ class mpu9250(object):
 		# if value >= (1 << 15):
 		# 	value -= (1 << 15)
 		# print(lsb, msb, value)
-		return value
+                return (-1 * value)
 
 	@property
 	def accel(self):
