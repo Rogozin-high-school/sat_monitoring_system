@@ -32,14 +32,16 @@ class hBridge:
         GPIO.cleanup()
 
 
-    def setOutput(self, direction):
+    def SetOutput(self, direction):
         # 0 - no voltage at all
         # 1 - positive voltage
         # -1 - negative voltage
 
         # TODO : Check if RPi.GPIO is loaded and the program is not in debug mode
         if direction == 0:
-            GPIO.output([self.directionPort1, self.directionPort2, self.pwmPort1, self.pwmPort2], GPIO.LOW)
+            GPIO.output([self.directionPort1, self.directionPort2,
+                self.pwmPort1, self.pwmPort2], GPIO.LOW)
+
         elif direction == 1:
             GPIO.output([self.directionPort2, self.pwmPort1, self.pwmPort2], GPIO.HIGH)
             GPIO.output(self.directionPort1, GPIO.LOW)
