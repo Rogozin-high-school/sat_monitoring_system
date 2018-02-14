@@ -31,6 +31,13 @@ class magnetorquer:
     # Setters
     def __set_x__(self,x):
         # Input vaidation
+
+        # What if we got the string '1' ?
+        try:
+            x = int(x)
+        except:
+            raise ValueError('H Bridge direction is not valid')
+
         if(x != 0 && x != 1 && x != -1):
             raise ValueError('H Bridge direction is not valid')
         
@@ -40,6 +47,13 @@ class magnetorquer:
 
     def __set_y__(self,y):
         # Input vaidation
+
+        # What if we got the string '1' ?
+        try:
+            x = int(x)
+        except:
+            raise ValueError('H Bridge direction is not valid')
+        
         if(y != 0 && y != 1 && y != -1):
             raise ValueError('H Bridge direction is not valid')
         
@@ -48,6 +62,13 @@ class magnetorquer:
 
     def __set_z__(self,z):
         # Input vaidation
+
+        # What if we got the string '1' ?
+        try:
+            x = int(x)
+        except:
+            raise ValueError('H Bridge direction is not valid')
+        
         if(z != 0 && z != 1 && z != -1):
             raise ValueError('H Bridge direction is not valid')
         
