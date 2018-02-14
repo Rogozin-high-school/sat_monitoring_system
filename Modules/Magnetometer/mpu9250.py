@@ -131,9 +131,9 @@ class mpu9250(object):
 		# for i in range(6):
 		# 	data.append(self.read8(address, register + i))
 
-		x = self.conv(data[0], data[1]) * lsb
-		y = self.conv(data[2], data[3]) * lsb
-		z = self.conv(data[4], data[5]) * lsb
+		y = self.conv(data[0], data[1])
+		x = self.conv(data[2], data[3])
+		z = self.conv(data[4], data[5])
 
 		# ans = self.convv.unpack(*data)
 		# ans = struct.unpack('<hhh', data)[0]
@@ -142,7 +142,7 @@ class mpu9250(object):
 
 		return (x, y, z)
 
-	def conv(self, msb, lsb):
+	def conv(self, lsb, msb):
 		"""
 		http://stackoverflow.com/questions/26641664/twos-complement-of-hex-number-in-python
 		"""
@@ -150,7 +150,7 @@ class mpu9250(object):
 		# if value >= (1 << 15):
 		# 	value -= (1 << 15)
 		# print(lsb, msb, value)
-		return value
+                return (-1 * value)
 
 	@property
 	def accel(self):
