@@ -77,9 +77,6 @@ while True:
                 if 'z' in parameters_dict:
                     magnetorquer.set_z(parameters_dict['z'])
 
-                # Applies those values to the magnetorquer
-                # and changes the force of the field
-                magnetorquer.update()
             elif path == "get_magnetorquer":
                 # writes the current measurments to the http_response
                 http_response += "'X':" + str(magnetorquer.get_x()) + ","

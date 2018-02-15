@@ -6,11 +6,6 @@ class magnetorquerMT(magnetorquer.magnetorquer):
         magnetorquer.magnetorquer.__init__(self)
         self.lock = threading.Lock()
 
-    def update(self):
-        with self.lock:
-            # Update the magnetorquer according to the saved values
-            self.__update__()
-            
     # Setters
     def set_x(self,x):
         with self.lock:
