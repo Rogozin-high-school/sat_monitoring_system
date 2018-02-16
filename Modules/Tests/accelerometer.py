@@ -1,6 +1,6 @@
-from ..Gyro import gyroMT
+from ..Accelerometer import accelerometerMT
 
-sensor = gyroMT.gyroMT()
+sensor = accelerometerMT.accelerometerMT()
 
 shouldRun = True
 
