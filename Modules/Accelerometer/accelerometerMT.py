@@ -1,19 +1,19 @@
-from . import gyro
+from . import accelerometer
 import threading
 
-# Just like gyro only thread safe
-class gyroMT(gyro.gyro):
-    """A class for reading data from the gyro sensor
+# Just like accelerometer only thread safe
+class accelerometerMT(accelerometer.accelerometer):
+    """A class for reading data from the accelerometer sensor
     while keeping your program multithreading safe"""
 
     def __init__(self):
         """Initialises the sensor object if the
-        gyro is connected"""
-        gyro.gyro.__init__(self)
+        accelerometer is connected"""
+        accelerometer.accelerometer.__init__(self)
         self.lock = threading.Lock()
 
     def get_x(self):
-        """Reads x axis gyro value
+        """Measures x axis acceleration value
         while keeping your program multithreading safe"""
         data = None
         with self.lock:
@@ -21,7 +21,7 @@ class gyroMT(gyro.gyro):
         return data
 
     def get_y(self):
-        """Reads z axis gyro value
+        """Measures z axis acceleration value
         while keeping your program multithreading safe"""
         data = None
         with self.lock:
@@ -29,7 +29,7 @@ class gyroMT(gyro.gyro):
         return data
 
     def get_z(self):
-        """Reads z axis gyro value
+        """Measures z axis acceleration value
         while keeping your program multithreading safe"""
         data = None
         with self.lock:
@@ -37,7 +37,7 @@ class gyroMT(gyro.gyro):
         return data
 
     def get_axes(self):
-        """Reads gyro in a form of a tuple containing
+        """Measures acceleration in a form of a tuple containing
         x, y and z axis values while keeping your
         program multithreading safe"""
         data = None
