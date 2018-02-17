@@ -8,10 +8,10 @@ class vector3D:
         self.y = y
         self.z = z
 
-    def distance_to(self, vector) -> int:
+    def distance_to(self, vector) -> float:
         return sqrt((self.x - vector.x) ** 2 + (self.y - vector.y) ** 2 + (self.z - vector.z) ** 2)
 
-    def length(self) -> int:
+    def length(self) -> float:
         return sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2)
 
     def __add__(self, vector):
