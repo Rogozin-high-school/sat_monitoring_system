@@ -10,7 +10,7 @@ LOG_FILE_NAME = 'log'
 MAGNETOMETER_CONNECTED = False
 
 # Communications Settings
-LIVE_DISPLAY_FILE_NAME = 'Communications/html/live.html'
+LIVE_DISPLAY_FILE_NAME = 'Modules/Communications/html/live.html'
 
 HTTP_HOST = ""
 HTTP_PORT = 8080

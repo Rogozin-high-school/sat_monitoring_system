@@ -50,7 +50,7 @@ class magnetorquer:
 
         # What if we got the string '1' ?
         try:
-            x = int(x)
+            y = int(y)
         except:
             raise ValueError('H Bridge direction is not valid')
         
@@ -65,7 +65,7 @@ class magnetorquer:
 
         # What if we got the string '1' ?
         try:
-            x = int(x)
+            z = int(z)
         except:
             raise ValueError('H Bridge direction is not valid')
         
