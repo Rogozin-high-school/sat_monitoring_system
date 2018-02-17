@@ -1,4 +1,4 @@
-from ..Magnetometer import magnetometerMT
+from ..Modules.Magnetometer import magnetometerMT
 import math
 
 
