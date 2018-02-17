@@ -50,11 +50,11 @@ class Communications(threading.Thread):
             http_response += "\n"
        
             # Finding matching command handler on the command handlers file
-            if hasattr(self.command_handler, path)
+            if hasattr(self.command_handler, path):
                 command_handler = getattr(self.command_handler, path)
-                http_response = command_handler(parameters)
+                http_response += command_handler(parameters)
             else:
-                http_response = "Command not found"
+                http_response += "Command not found"
 
             # Sending a response and closing the connection
             client_connection.sendall(http_response.encode())

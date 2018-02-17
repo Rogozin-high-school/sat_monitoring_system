@@ -3,13 +3,20 @@ import socket
 
 # ------------ Local import statements
 from Modules.Magnetometer import magnetometerMT
+
 from Modules.Magnetorquer import magnetorquerMT
+
 from Modules.Logging import log_thread
 from Modules.Logging import log
-from Modules import config
+
 from Modules.Communications import command_handler
 from Modules.Communications import communications
 
+from Modules.Accelerometer import accelerometerMT
+
+from Modules.Gyro import gyroMT
+
+from Modules import config
 
 # ------------ Variables & Objects
 # Lowest level modules objects

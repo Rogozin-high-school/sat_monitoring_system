@@ -1,7 +1,5 @@
-from .Modules.Magnetometer import magnetometerMT
-
 class command_handler:
-    def __init__(self, magnetometer, magnetorquer, log, gyro, accelerometer)
+    def __init__(self, magnetometer, magnetorquer, log, gyro, accelerometer):
         self.magnetometer = magnetometer
         self.magnetorquer = magnetorquer
         self.log = log
