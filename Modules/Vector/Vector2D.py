@@ -4,7 +4,7 @@ class vector2D:
     def __init__(self,x:float=0,y:float=0):
         self.x = x
         self.y = y
-    def distanceTo(self,vector):
+    def distance_to(self,vector):
         return sqrt((self.x-vector.x)**2+(self.y-vector.y)**2)
     def length(self):
         return sqrt(self.x**2+self.y**2)

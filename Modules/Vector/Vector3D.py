@@ -5,7 +5,7 @@ class vector3D:
         self.x = x
         self.y = y
         self.z = z
-    def distanceTo(self,vector)->int:
+    def distance_to(self,vector)->int:
         return sqrt((self.x-vector.x)**2+(self.y-vector.y)**2+(self.z-vector.z)**2)
     def length(self)->int:
         return sqrt(self.x**2+self.y**2+self.z**2)
