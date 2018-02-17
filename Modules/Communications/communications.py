@@ -1,5 +1,8 @@
 import threading
 import json
+import socket
+
+from .. import config
 
 class Communications(threading.Thread):
     def __init__(self, command_handler):
@@ -50,6 +53,9 @@ class Communications(threading.Thread):
             http_response += "\n"
        
             # Finding matching command handler on the command handlers file
+            if path == "stop":
+
+
             if hasattr(self.command_handler, path):
                 command_handler = getattr(self.command_handler, path)
                 http_response += command_handler(parameters)

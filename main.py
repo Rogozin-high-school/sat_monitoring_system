@@ -22,8 +22,8 @@ from Modules import config
 # Lowest level modules objects
 magnetometer = magnetometerMT.magnetometerMT()
 magnetorquer = magnetorquerMT.magnetorquerMT()
-accelerometer = accelerometer.accelerometer()
-gyro = gyro.gyro()
+accelerometer = accelerometerMT.accelerometerMT()
+gyro = gyroMT.gyroMT()
 log = log.log(config.LOG_FILE_NAME)
 
 # Higher level modules objects
