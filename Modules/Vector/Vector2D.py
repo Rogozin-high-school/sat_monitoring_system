@@ -7,11 +7,11 @@ class vector2D:
         self.x = x
         self.y = y
 
-    def distance_to(self, vector):
+    def distance_to(self, vector : vector2D) -> float:
         return sqrt((self.x - vector.x) ** 2 + (self.y - vector.y) ** 2)
 
-    def length(self):
+    def length(self) -> float:
         return sqrt(self.x ** 2 + self.y ** 2)
 
-    def __add__(self, vector):
+    def __add__(self, vector : vector2D):
         return vector2D(self.x + vector.x, self.y + vector.y)
