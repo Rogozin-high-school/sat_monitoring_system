@@ -1,6 +1,6 @@
-from .. import config
+from . import config
 
-if config.MAGNETOMETER_CONNECTED:
+if config.ACCELEROMETER_CONNECTED:
     from . import mpu9250
 
 class accelerometer:
@@ -9,7 +9,7 @@ class accelerometer:
     def __init__(self):
         """Initialises the sensor object if the
         accelerometer is connected"""
-        if config.MAGNETOMETER_CONNECTED:
+        if config.ACCELEROMETER_CONNECTED:
             self.sensor = mpu9250.mpu9250()
 
     # Reading data from accelerometer
@@ -30,7 +30,7 @@ class accelerometer:
     def __get_axes__(self):
         """Measure acceleration in a form of a tuple containing
         x, y and z axis values"""
-        if config.MAGNETOMETER_CONNECTED:
+        if config.ACCELEROMETER_CONNECTED:
             return self.sensor.read_xyz()
         else:
             return (0,0,0)        

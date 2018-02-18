@@ -1,13 +1,14 @@
-from .. import config
+from . import config
 
+# Checking if Rpi.GPIO is loaded to avoid using it
+# without it being loaded
 GPIO_LOADED = False
 
-if config.X_AXIS_H_BRIDGE_CONNECTED or config.Y_AXIS_H_BRIDGE_CONNECTED or config.Z_AXIS_H_BRIDGE_CONNECTED:
-    try:
-        import RPi.GPIO as GPIO
-        GPIO_LOADED = True
-    except RuntimeError:
-        print("An error occured while importing RaspberryPi.GPIO")
+try:
+    import RPi.GPIO as GPIO
+    GPIO_LOADED = True
+except RuntimeError:
+    print("An error occured while importing RaspberryPi.GPIO")
 
 class hBridge:
 

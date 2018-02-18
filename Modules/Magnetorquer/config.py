@@ -1,21 +1,3 @@
-"""
-Constants and configuration variables.
-"""
-
-# Log file settings
-LOG_INTERVAL_MS = 1000
-LOG_FILE_NAME = 'log'
-
-# Magnetometer Settings
-MAGNETOMETER_CONNECTED = False
-
-# Communications Settings
-LIVE_DISPLAY_FILE_NAME = 'Modules/Communications/html/live.html'
-
-HTTP_HOST = ""
-HTTP_PORT = 8080
-
-# Magnetorquer port settings
 X_AXIS_H_BRIDGE_CONNECTED = False
 X_AXIS_H_BRIDGE_DIRECTION_PORT_1 = -1
 X_AXIS_H_BRIDGE_DIRECTION_PORT_2 = -1
