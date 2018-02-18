@@ -1,0 +1,1 @@
+GYRO_CONNECTED = False

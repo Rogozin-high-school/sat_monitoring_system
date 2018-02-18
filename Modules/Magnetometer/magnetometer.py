@@ -1,4 +1,4 @@
-from .. import config
+from . import config
 
 if config.MAGNETOMETER_CONNECTED:
     from . import mpu9250
