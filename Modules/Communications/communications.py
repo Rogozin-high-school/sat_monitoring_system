@@ -54,11 +54,11 @@ class Communications(threading.Thread):
        
             # Finding matching command handler on the command handlers file
             if path == "stop":
-
-
-            if hasattr(self.command_handler, path):
+                http_response += "Stopping server"
+                self.should_run = False
+            elif hasattr(self.command_handler, path):
                 command_handler = getattr(self.command_handler, path)
-                http_response += command_handler(parameters)
+                http_response += command_handler(parameters_dict)
             else:
                 http_response += "Command not found"
 
