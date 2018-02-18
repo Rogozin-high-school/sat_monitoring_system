@@ -1,6 +1,6 @@
-from .. import config
+from . import config
 
-if config.MAGNETOMETER_CONNECTED:
+if config.GYRO_CONNECTED:
     from . import mpu9250
 
 class gyro:
@@ -9,7 +9,7 @@ class gyro:
     def __init__(self):
         """Initialises the sensor object if the
         gyro is connected"""
-        if config.MAGNETOMETER_CONNECTED:
+        if config.GYRO_CONNECTED:
             self.sensor = mpu9250.mpu9250()
 
     # Reading data from gyro
@@ -30,7 +30,7 @@ class gyro:
     def __get_axes__(self):
         """Reads gyro in a form of a tuple containing
         x, y and z axis values"""
-        if config.MAGNETOMETER_CONNECTED:
+        if config.GYRO_CONNECTED:
             return self.sensor.gyro
         else:
             return (0,0,0)        
