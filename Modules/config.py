@@ -6,8 +6,8 @@ Constants and configuration variables.
 LOG_INTERVAL_MS = 1000
 LOG_FILE_NAME = 'log'
 
-# Are we running on the actual hardware ?
-HAS_HARDWARE = True
+# Magnetometer Settings
+MAGNETOMETER_CONNECTED = False
 
 # Communications Settings
 LIVE_DISPLAY_FILE_NAME = 'Communications/html/live.html'
