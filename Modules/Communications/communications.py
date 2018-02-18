@@ -4,7 +4,7 @@ import socket
 
 from .. import config
 
-class Communications(threading.Thread):
+class communications(threading.Thread):
     def __init__(self, command_handler):
         threading.Thread.__init__(self)
         self.should_run = True
