@@ -3,7 +3,14 @@ SMS is a web app written in python. The web app would display reading and sensor
 SMS will be hosted on the satellite, currently a Raspberry Pi 3 Model B running Raspbian.
 
 ## Structure
-TODO : Write this
+Please maintain the repo's structure and organization when commiting to the repo.  
+The structure of the repo is as follows :
+* ```main.py``` - The starting point of the sat_monitoring_system, this file initializes  
+and linkes all of the different modules together.  
+* ```test.py``` - A script for easily running the tests.
+* ```Modules/``` - This directory contains all of the software and hardware modules of the system.  
+* ```Tests/``` - This directory contains one or more tests for each software and  
+hardware modules. See the Tests section on why this is needed.
 
 ## Contributions
 If you would like to contribute to the sat_monitoring_system  
@@ -16,7 +23,13 @@ commits and the purpose of the pull request.
 When writing a software module please write a test for the module as well.  
 The tests are intended to make sure the software works as intended and handles  
 input correctly.  
+<<<<<<< HEAD
 Please add the test file to the module's folder so and give it an appropriate name, for example ```unitTest.py```.
+=======
+When writing a test plesae add it to the ```Tests``` folder.  
+In order to run a test please run ```test.py``` and pass it the name of the  
+script you wish to run.
+>>>>>>> 7eda2cdc37697f56f64cffd313bdcefcd47afbb4
 
 ## Contribution Guidelines
 Please follow the following guidelines when contributing to our repo.

@@ -6,20 +6,20 @@ import threading
 
 class magnetorquer:
     def __init__(self):
-        self.x = hBridge.hBridge(X_AXIS_H_BRIDGE_DIRECTION_PORT_1
-                X_AXIS_H_BRIDGE_DIRECTION_PORT_2,
-                X_AXIS_H_BRIDGE_PWM_PORT_1,
-                X_AXIS_H_BRIDGE_PWM_PORT_2)
+        self.x = hBridge.hBridge(config.X_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+                config.X_AXIS_H_BRIDGE_DIRECTION_PORT_2,
+                config.X_AXIS_H_BRIDGE_PWM_PORT_1,
+                config.X_AXIS_H_BRIDGE_PWM_PORT_2)
 
-        self.y = hBridge.hBridge(Y_AXIS_H_BRIDGE_DIRECTION_PORT_1
-                Y_AXIS_H_BRIDGE_DIRECTION_PORT_2,
-                Y_AXIS_H_BRIDGE_PWM_PORT_1,
-                Y_AXIS_H_BRIDGE_PWM_PORT_2)
+        self.y = hBridge.hBridge(config.Y_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+                config.Y_AXIS_H_BRIDGE_DIRECTION_PORT_2,
+                config.Y_AXIS_H_BRIDGE_PWM_PORT_1,
+                config.Y_AXIS_H_BRIDGE_PWM_PORT_2)
         
-        self.z = hBridge.hBridge(Z_AXIS_H_BRIDGE_DIRECTION_PORT_1
-                Z_AXIS_H_BRIDGE_DIRECTION_PORT_2,
-                Z_AXIS_H_BRIDGE_PWM_PORT_1,
-                Z_AXIS_H_BRIDGE_PWM_PORT_2)
+        self.z = hBridge.hBridge(config.Z_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+                config.Z_AXIS_H_BRIDGE_DIRECTION_PORT_2,
+                config.Z_AXIS_H_BRIDGE_PWM_PORT_1,
+                config.Z_AXIS_H_BRIDGE_PWM_PORT_2)
     
         self.xDirection = 0
         self.yDirection = 0
@@ -38,7 +38,7 @@ class magnetorquer:
         except:
             raise ValueError('H Bridge direction is not valid')
 
-        if(x != 0 && x != 1 && x != -1):
+        if(x != 0 and x != 1 and x != -1):
             raise ValueError('H Bridge direction is not valid')
         
         self.xDirection = x
@@ -50,11 +50,11 @@ class magnetorquer:
 
         # What if we got the string '1' ?
         try:
-            x = int(x)
+            y = int(y)
         except:
             raise ValueError('H Bridge direction is not valid')
         
-        if(y != 0 && y != 1 && y != -1):
+        if(y != 0 and y != 1 and y != -1):
             raise ValueError('H Bridge direction is not valid')
         
         self.yDirection = y
@@ -65,11 +65,11 @@ class magnetorquer:
 
         # What if we got the string '1' ?
         try:
-            x = int(x)
+            z = int(z)
         except:
             raise ValueError('H Bridge direction is not valid')
         
-        if(z != 0 && z != 1 && z != -1):
+        if(z != 0 and z != 1 and z != -1):
             raise ValueError('H Bridge direction is not valid')
         
         self.zDirection = z
