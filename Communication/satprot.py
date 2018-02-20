@@ -45,3 +45,28 @@ class OutMsg(object):
             body += x
         body = struct.pack("I", len(body) + 2) + bytes([self.type, self.status]) + body
         return body
+
+class Connection(object):
+    def __init__(self, ip, port):
+        self.soc = socket()
+        self.ip = ip
+        self.port = port
+        self.soc.connect((ip, port))
+
+    def send(self, msg : OutMsg):
+        self.soc.send(msg.get_bytes())
+
+    def recv(self) -> InMsg:
+        l = sum(struct.unpack("I", self.soc.recv(4)))
+        print("Length " + str(l))
+        return InMsg(self.soc.recv(l))
+
+    def close(self):
+        self.soc.close()
+
+c = Connection("localhost", 8080)
+m = OutMsg(5, 4)
+m.add_int(2)
+c.send(m)
+
+x = c.recv()
