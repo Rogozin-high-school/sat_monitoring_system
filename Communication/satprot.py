@@ -1,6 +1,7 @@
 from socket import socket
+import struct
 
-class InMsg():
+class InMsg(object):
 
     def __init__(self, body, offset = 0):
         self.body = body
@@ -15,4 +16,32 @@ class InMsg():
         return self.status
 
     def next_int(self):
-        
+        data = self.body[self.ptr : self.ptr + 4]
+        self.ptr += 4
+        data = sum(struct.unpack("I", bytearray(data)))
+        return data
+
+    def next_float(self):
+        data = self.body[self.ptr : self.ptr + 4]
+        self.ptr += 4
+        data = sum(struct.unpack("f", bytearray(data)))
+        return data
+
+class OutMsg(object):
+    def __init__(self, _type, status):
+        self.type = _type
+        self.status = status
+        self.params = []
+    
+    def add_int(self, i):
+        self.params.append(struct.pack("I", i))
+
+    def add_float(self, f):
+        self.params.append(struct.pack("f", f))
+
+    def get_bytes(self):
+        body = bytes()
+        for x in self.params:
+            body += x
+        body = struct.pack("I", len(body) + 2) + bytes([self.type, self.status]) + body
+        return body
