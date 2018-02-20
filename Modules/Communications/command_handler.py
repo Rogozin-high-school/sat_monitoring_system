@@ -1,4 +1,4 @@
-from .. import config
+from . import config
 
 class command_handler:
     def __init__(self, magnetometer, magnetorquer, log, gyro, accelerometer):

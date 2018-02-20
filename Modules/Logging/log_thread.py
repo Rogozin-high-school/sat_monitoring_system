@@ -1,15 +1,16 @@
 # Import statements
 import threading
 import time
-from .. import config
-from ..Magnetometer import magnetometerMT
+
+from . import config
 from . import log
+from . import logger
 
 # This thread will create a log file and update it
 class log_thread(threading.Thread):
     """This class represents a new thread that logs magnetometer data to a log file"""
     
-    def __init__(self,magnetometer,log):
+    def __init__(self,magnetometer):
         """Initializes the logging thread
         
         Keyword arguments:
@@ -19,7 +20,7 @@ class log_thread(threading.Thread):
         threading.Thread.__init__(self)
         self.should_log = True
         self.magnetometer = magnetometer
-        self.log = log
+        self.log = logger.get_logger()
 
     def run(self):
         """Loggin code that reads data from a magnetometer and writes it to a log file"""

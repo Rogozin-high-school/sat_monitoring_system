@@ -2,7 +2,7 @@ import threading
 import json
 import socket
 
-from .. import config
+from . import config
 
 class communications(threading.Thread):
     def __init__(self, command_handler):
