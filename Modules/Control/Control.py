@@ -1,4 +1,4 @@
-from Modules.Magnetometer.magnetometerMT import magnetometerMT
+from ..Magnetometer import magnetometerMT
 import math
 import numpy
 
@@ -55,4 +55,4 @@ def get_angle_vector(angle:int)->numpy.ndarray:
         x=0
         value = 1
     z = math.sqrt(value-x)
-    vector = numpy.array(x,0,z)
+    vector = numpy.array([x,0,z])
