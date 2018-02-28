@@ -1,15 +1,24 @@
 from ..Magnetometer import magnetometerMT
 import math
 import numpy
+import time
 
 
 __radius = 7370 * 1000
 __circle_time = 90 * 60
+
 class controller:
     def __init__(self):
         self.magnetometer = magnetometerMT()
+        self.time = time.time()
+        #TODO : add a secondary thread that changes time
     def SetControl(self,mode=1):
-        nothing = None
+        field = self.magnetometer.get_axes()
+        timer = (self.time-time.time()) % (90*60)
+        torque = get_angle_vector(get_angle(timer))
+        z = (field[1] * torque[0] - filed[0]*torque[1]) / (field[2]*torque[1]-field[1]*torque[2])
+        y = (-field[0] - z * field[2]) / field[1]
+        return np.array([1,y,z])
 
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
