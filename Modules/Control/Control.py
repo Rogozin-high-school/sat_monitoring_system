@@ -47,12 +47,14 @@ def get_ratio(time:int)->int:
 '''
 '''
 def get_angle_vector(angle:int)->numpy.ndarray:
-    x = 1
-    value = 0
-    try:
+    if((angle / 90) % 2 != 1):
+        angle = math.radians(angle)
+        x = 1
         value = 1 / (math.cos(angle) ** 2)
-    except:
-        x=0
-        value = 1
-    z = math.sqrt(value-x)
-    vector = numpy.array([x,0,z])
+        z = math.sqrt(value-x)
+        return numpy.array([x,0,z])
+    else:
+        if(angle == 90):
+            return numpy.array([0,0,1])
+        else:
+            return numpy.array([0,0,-1])
