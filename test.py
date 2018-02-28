@@ -11,4 +11,4 @@ if len(arguments) != 2:
 test_name = arguments[1]
 
 os.chdir("../")
-os.system("python -m sat_monitoring_system.Tests." + test_name)
+os.system("py -3 -m sat_monitoring_system.Tests." + test_name)
