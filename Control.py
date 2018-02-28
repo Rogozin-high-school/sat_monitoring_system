@@ -1,5 +1,6 @@
 from Modules.Magnetometer.magnetometerMT import magnetometerMT
 import math
+import numpy
 
 
 __radius = 7370 * 1000
@@ -13,7 +14,7 @@ class controller:
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
 '''
-def TwoDimensionsVerticalVector(x,y):
+def TwoDimensionsVerticalVector(x,y):#delete this fucntion
     slowpe = x/y
     return -1/slowpe
 
@@ -43,3 +44,15 @@ def get_ratio(time:int)->int:
     global __circle_time
     return (time % __circle_time) / __circle_time
 
+'''
+'''
+def get_angle_vector(angle:int)->numpy.ndarray:
+    x = 1
+    value = 0
+    try:
+        value = 1 / (math.cos(angle) ** 2)
+    except:
+        x=0
+        value = 1
+    z = math.sqrt(value-x)
+    vector = numpy.array(x,0,z)
