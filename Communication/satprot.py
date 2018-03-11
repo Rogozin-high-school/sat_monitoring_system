@@ -57,8 +57,10 @@ class OutMsg(object):
         """
         Initializes a new OutMsg object.
         Parameters:
-            type - the type of the message (single byte int)
-            status - the status of the message (single byte int)
+            type - the type of the message (single byte int), that will set the 
+                    server's way of reacting to the message.
+            status - the status of the message (single byte int), which is returned
+                    by the server to indicate the result of the required action (if required).
         """
         self.type = _type
         self.status = status
