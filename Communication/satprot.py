@@ -1,4 +1,4 @@
-from socket import socket
+from socket import *
 import struct
 
 class InMsg(object):
@@ -48,25 +48,10 @@ class OutMsg(object):
 
 class Connection(object):
     def __init__(self, ip, port):
-        self.soc = socket()
+        self.soc = socket(AF_INET, SOCK_DGRAM)
+        self.soc.settimeout(1)
         self.ip = ip
         self.port = port
-        self.soc.connect((ip, port))
 
     def send(self, msg : OutMsg):
-        self.soc.send(msg.get_bytes())
-
-    def recv(self) -> InMsg:
-        l = sum(struct.unpack("I", self.soc.recv(4)))
-        print("Length " + str(l))
-        return InMsg(self.soc.recv(l))
-
-    def close(self):
-        self.soc.close()
-
-c = Connection("localhost", 8080)
-m = OutMsg(5, 4)
-m.add_int(2)
-c.send(m)
-
-x = c.recv()
+        self.soc.sendto(msg.get_bytes(), (self.ip, self.port))
