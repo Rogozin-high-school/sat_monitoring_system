@@ -11,7 +11,7 @@ def calc_field(current:float)->float:
     return current * AMOUNT_OF_WRAPS * math.pi * RADIUS**2
 
 def current_to_voltage(current:float)->float:
-    return current*RESISTANCE
+    return current * RESISTANCE
 
 def voltage_to_current(voltage:float)->float:
-    reutrn voltage/RESISTANCE
+    reutrn voltage / RESISTANCE
