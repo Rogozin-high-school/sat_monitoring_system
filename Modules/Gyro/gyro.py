@@ -31,6 +31,7 @@ class gyro:
         """Reads gyro in a form of a tuple containing
         x, y and z axis values"""
         if config.GYRO_CONNECTED:
-            return self.sensor.gyro
+            return self.sensor.gyro()
         else:
-            return (0,0,0)        
+            return (0,0,0)
+			
