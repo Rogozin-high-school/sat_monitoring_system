@@ -6,9 +6,11 @@ sensor = gyroMT.gyroMT()
 
 shouldRun = True
 
-con = satprot.connection("192.168.2.104")
+__DESTINATION__ = "192.168.2.104",14944
+con = satprot.connection(__DESTINATION__)
 
 while shouldRun:
+    time.sleep(0.05)
     try :
         axes = sensor.get_axes()
         x = axes[0]
