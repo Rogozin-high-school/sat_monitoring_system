@@ -23,9 +23,9 @@ class controller:
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
 '''
-def TwoDimensionsVerticalVector(x:float,y:float):#delete this fucntion
-    slowpe = x/y
-    return -1/slowpe
+def two_demensions_vertical_vector(x:float,y:float):
+    slowpe = x / y
+    return -1 / slowpe
 
 '''
 parameters : time in seconds from measurment start
