@@ -1,0 +1,3 @@
+AMOUNT_OF_WRAPS = 100
+RADIUS = 0.09 #(meter)
+RESISTANCE = 170 #(ohm)
