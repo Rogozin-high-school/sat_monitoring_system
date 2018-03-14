@@ -11,7 +11,9 @@ except RuntimeError:
     print("An error occured while importing RaspberryPi.GPIO")
 
 class hBridge:
-
+    '''
+    This class is used to create voltage on the magnetorquers that will change the current and thus will change the magnetic field
+    '''
     def __init__(self, directionPort1, directionPort2, pwmPort1, pwmPort2):
         # Each h-bridge takes 4 ports
         # 2 ports that control the direction (1 port for each direction)

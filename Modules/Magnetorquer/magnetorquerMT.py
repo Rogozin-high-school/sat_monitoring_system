@@ -2,6 +2,9 @@ from . import magnetorquer
 import threading
 
 class magnetorquerMT(magnetorquer.magnetorquer):
+    '''
+    This class is exactly like magnetorquer, except it allows one to use the class by multiple threads at the same time
+    '''
     def __init__(self):
         magnetorquer.magnetorquer.__init__(self)
         self.lock = threading.Lock()

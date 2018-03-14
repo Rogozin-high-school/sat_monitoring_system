@@ -5,6 +5,11 @@ import threading
 
 
 class magnetorquer:
+    '''
+    This class is used to create certain field on the magnetorquers on the satellite for each axis.
+    There are 3 axis (x,y,z) and each one could be changed.
+    The init function  initiates the connections of the object to the 3 physical magnetorqures.
+    '''
     def __init__(self):
         self.x = hBridge.hBridge(config.X_AXIS_H_BRIDGE_DIRECTION_PORT_1,
                 config.X_AXIS_H_BRIDGE_DIRECTION_PORT_2,
@@ -28,7 +33,8 @@ class magnetorquer:
         self.lock = threading.Lock()
    
         
-    # Setters
+    # Setters.
+    #This function sets the field value of the x axis magnetorquer
     def __set_x__(self,x):
         # Input vaidation
 
@@ -44,7 +50,7 @@ class magnetorquer:
         self.xDirection = x
         self.x.SetDirection(x)
         
-
+    #This function sets the field value of the y axis magnetorquer
     def __set_y__(self,y):
         # Input vaidation
 
@@ -59,7 +65,7 @@ class magnetorquer:
         
         self.yDirection = y
         self.y.SetDirection(y)
-
+    #This function sets the field value of the z axis magnetorquer
     def __set_z__(self,z):
         # Input vaidation
 
@@ -76,11 +82,12 @@ class magnetorquer:
         self.z.SetDirection(z)
 
     # getters
+    #This function returns the field value which was set for the x magnetoruqer
     def __get_x__(self):
         return self.xDirection
-
+    #This function returns the field value which was set for the y magnetoruqer
     def __get_y__(self):
         return self.yDirection
-
+    #This function returns the field value which was set for the z magnetoruqer
     def __get_z__(self):
         return self.zDirection
