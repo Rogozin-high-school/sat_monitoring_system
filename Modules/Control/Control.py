@@ -13,12 +13,15 @@ class controller:
         self.time = time.time()
         #TODO : add a secondary thread that changes time
     def SetControl(self,mode=1):
-        field = self.magnetometer.get_axes()
-        timer = (self.time-time.time()) % (90*60)
-        torque = get_angle_vector(get_angle(timer))
-        z = (field[1] * torque[0] - filed[0]*torque[1]) / (field[2]*torque[1]-field[1]*torque[2])
-        y = (-field[0] - z * field[2]) / field[1]
-        return np.array([1,y,z])
+       if(mode==1):
+            field = self.magnetometer.get_axes()
+            timer = (self.time-time.time()) % (90*60)
+            torque = get_angle_vector(get_angle(timer))
+            z = (field[1] * torque[0] - filed[0]*torque[1]) / (field[2]*torque[1]-field[1]*torque[2])
+            y = (-field[0] - z * field[2]) / field[1]
+            return np.array([1,y,z])
+        elif(mode==2):
+            return np.array([1,1,1])
 
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
