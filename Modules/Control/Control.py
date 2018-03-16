@@ -11,21 +11,21 @@ class controller:
     def __init__(self,mode=1):
         self.magnetometer = magnetometerMT()
         self.time = time.time()
-        #TODO : add a secondary thread that changes calls setControl
+        #TODO : Add a secondary thread that changes calls setControl
         
 
-    #TODO: add offset for meneuvering to certain locations on earth
+    #TODO: Add offset for meneuvering to certain locations on earth
     def set_control(self,mode=1,offset=[0,0]):
         #makes the direction change for the measured depolar magnetic field (cos function value)
-        if(mode==1):
+        if(mode == 1):
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90*60)
             torque = get_angle_vector(get_angle(timer))
-            z = (field[1] * torque[0] - filed[0]*torque[1]) / (field[2]*torque[1]-field[1]*torque[2])
+            z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2]*torque[1] - field[1]*torque[2])
             y = (-field[0] - z * field[2]) / field[1]
             return np.array([1,y,z])
         #makes the direction change for circular magnetic field, in order to go by the field
-        elif(mode==2):
+        elif(mode == 2):
             return np.array([1,1,1])
 
 ''''
