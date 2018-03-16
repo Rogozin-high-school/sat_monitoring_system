@@ -15,7 +15,7 @@ class controller:
         
 
     #TODO: add offset for meneuvering to certain locations on earth
-    def SetControl(self,mode=1,offset=[0,0]):
+    def set_control(self,mode=1,offset=[0,0]):
         #makes the direction change for the measured depolar magnetic field (cos function value)
         if(mode==1):
             field = self.magnetometer.get_axes()
