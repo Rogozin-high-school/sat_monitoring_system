@@ -76,6 +76,18 @@ def get_angle_vector(angle:int)->numpy.ndarray:
         else:
             return numpy.array([0,0,-1])
 
-#This function gets the satellite location (angle) by field for depolar magnetic field
-def get_angle_by_field(field:numpy.ndarray)->float:
-    return math.degrees(math.acos(field.size))
+#This function gets the satellite location (angle) by the measured  magnetic field
+def get_angle_by_field(field:numpy.ndarray ,mode:int=1)->float:
+    if(mode == 1):
+        #This block is for depolar magnetic field
+        #TODO : make this function take care of more than one half situations
+        return math.degrees(math.acos(field.size))
+    elif(mode == 2):
+        #This block is for circular magnetic field
+        a = field[0]
+        b = field[1]
+        y = math.sqrt(1 / (a**2 + b**2) )
+        x = math.sqrt(a**2 / (a**2 * (a**2 + y**2))
+        temp = math.sqrt(x**2/y**2 + 1)
+        rad = math.acos(1 / temp)
+        return math.degrees(rad) 
