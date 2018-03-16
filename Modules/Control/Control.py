@@ -15,7 +15,7 @@ class controller:
         
 
     #TODO: Add offset for meneuvering to certain locations on earth
-    def set_control(self,mode=1,offset=[0,0]):
+    def set_control(self, mode=1, offset=[0,0]):
         #makes the direction change for the measured depolar magnetic field (cos function value)
         if(mode == 1):
             field = self.magnetometer.get_axes()
@@ -77,7 +77,7 @@ def get_angle_vector(angle:int)->numpy.ndarray:
             return numpy.array([0,0,-1])
 
 #This function gets the satellite location (angle) by the measured  magnetic field
-def get_angle_by_field(field:numpy.ndarray ,mode:int=1)->float:
+def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
     if(mode == 1):
         #This block is for depolar magnetic field
         #TODO : make this function take care of more than one half situations
