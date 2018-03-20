@@ -5,7 +5,7 @@ import time
 
 
 __radius = 7370 * 1000
-__circle_time = 90 * 60
+__circle_time = 1 * 60
 
 class controller:
     def __init__(self,mode=1):
