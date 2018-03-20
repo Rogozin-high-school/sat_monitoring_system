@@ -1,5 +1,5 @@
 from . import config
-from . import accelometer_factory
+from . import accelerometer_factory
 
 class accelerometer:
     """A class for reading data from the accelerometer sensor"""
@@ -7,7 +7,8 @@ class accelerometer:
     def __init__(self):
         """Initialises the sensor object if the
         accelerometer is connected"""
-        self.sensor = accelometer_factory.initialize()
+        self.sensor = accelerometer_factory.initialize()
+
     # Reading data from accelerometer
     # NOT MULTI THREADING SAFE
     # use accelerometerMT for that
