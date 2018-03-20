@@ -1,7 +1,6 @@
 from . import config
+from . import magnetometer_factory
 
-if config.MAGNETOMETER_CONNECTED:
-    from . import mpu9250
 
 class magnetometer:
     """A class for reading data from the magnetometer sensor"""
@@ -9,8 +8,7 @@ class magnetometer:
     def __init__(self):
         """Initialises the sensor object if the
         magnetometer is connected"""
-        if config.MAGNETOMETER_CONNECTED:
-            self.sensor = mpu9250.mpu9250()
+        self.sensor = magnetometer_factory.magnetometer_factory()
 
     # Reading data from magnetometer
     # NOT MULTI THREADING SAFE
