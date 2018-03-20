@@ -12,7 +12,7 @@ class controller:
         self.magnetometer = magnetometerMT()
         self.time = time.time()
         #TODO : add a secondary thread that changes time
-    def SetControl(self,mode=1):
+    def set_control(self, mode=1):
         field = self.magnetometer.get_axes()
         timer = (self.time-time.time()) % (90*60)
         torque = get_angle_vector(get_angle(timer))
@@ -23,7 +23,7 @@ class controller:
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
 '''
-def two_demensions_vertical_vector(x:float,y:float):
+def two_demensions_vertical_vector(x:float, y:float):
     slowpe = x / y
     return -1 / slowpe
 
