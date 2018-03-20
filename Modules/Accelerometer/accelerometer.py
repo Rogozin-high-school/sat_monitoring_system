@@ -1,7 +1,5 @@
 from . import config
-
-if config.ACCELEROMETER_CONNECTED:
-    from . import mpu9250
+from . import accelometer_factory
 
 class accelerometer:
     """A class for reading data from the accelerometer sensor"""
@@ -9,9 +7,7 @@ class accelerometer:
     def __init__(self):
         """Initialises the sensor object if the
         accelerometer is connected"""
-        if config.ACCELEROMETER_CONNECTED:
-            self.sensor = mpu9250.mpu9250()
-
+        self.sensor = accelometer_factory.initialize()
     # Reading data from accelerometer
     # NOT MULTI THREADING SAFE
     # use accelerometerMT for that
