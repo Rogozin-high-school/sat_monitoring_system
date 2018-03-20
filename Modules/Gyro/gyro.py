@@ -1,7 +1,5 @@
 from . import config
-
-if config.GYRO_CONNECTED:
-    from . import mpu9250
+from . import gyro_factory
 
 class gyro:
     """A class for reading data from the gyro sensor"""
@@ -9,8 +7,7 @@ class gyro:
     def __init__(self):
         """Initialises the sensor object if the
         gyro is connected"""
-        if config.GYRO_CONNECTED:
-            self.sensor = mpu9250.mpu9250()
+        self.sensor = gyro_factory.initialize()
 
     # Reading data from gyro
     # NOT MULTI THREADING SAFE

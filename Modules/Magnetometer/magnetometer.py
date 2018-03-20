@@ -8,7 +8,7 @@ class magnetometer:
     def __init__(self):
         """Initialises the sensor object if the
         magnetometer is connected"""
-        self.sensor = magnetometer_factory.magnetometer_factory()
+        self.sensor = magnetometer_factory.initialize()
 
     # Reading data from magnetometer
     # NOT MULTI THREADING SAFE
