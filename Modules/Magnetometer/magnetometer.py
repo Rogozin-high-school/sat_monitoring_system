@@ -1,4 +1,3 @@
-from . import config
 from . import magnetometer_factory
 
 
@@ -10,25 +9,7 @@ class magnetometer:
         magnetometer is connected"""
         self.sensor = magnetometer_factory.initialize()
 
-    # Reading data from magnetometer
-    # NOT MULTI THREADING SAFE
-    # use magnetometerMT for that
-    def __get_x__(self):
-        """Reads x axis magnetic field value"""
-        return str(self.__get_axes__()[0])
-
-    def __get_y__(self):
-        """Reads y axis magnetic field value"""
-        return str(self.__get_axes__()[1])
-
-    def __get_z__(self):
-        """Reads z axis magnetic field value"""
-        return str(self.__get_axes__()[2])
-
     def __get_axes__(self):
         """Reads magnetic field in a form of a tuple containing
         x, y and z axis values"""
-        if config.MAGNETOMETER_CONNECTED:
-            return self.sensor.read_xyz()
-        else:
-            return (0,0,0)        
+        return self.sensor.readMagnet()

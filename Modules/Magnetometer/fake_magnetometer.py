@@ -5,12 +5,9 @@ from . import config
 
 class fake_magnetometer:
 
-    def __init__(self):
-        pass
-
     #TODO : add real field simulation
-    def read_xyz():
-        return [0,0,0]
+    def readMagnet(self):
+        return (0, 0, 0)
 
 def circular_field(angle:float):
 

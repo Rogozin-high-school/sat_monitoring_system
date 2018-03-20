@@ -1,8 +1,9 @@
 from . import config
-from . import fake_accelerometer
 
 if config.ACCELEROMETER_CONNECTED:
     from . import mpu9250
+else:
+    from . import fake_accelerometer
 
 #this function returns the mpu9250 hardware module object if the hardware is connected.
 #otherwise returns and object that simulates hardware
