@@ -1,6 +1,5 @@
-from . import config
-
 class fake_magnetometer:
+    """Simulates a magnetometer sensor"""
 
     #TODO : add real field simulation
     def readMagnet(self):

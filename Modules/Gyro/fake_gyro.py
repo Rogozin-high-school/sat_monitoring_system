@@ -1,4 +1,5 @@
 class fake_gyro:
+    """Simulates a gyro sensor"""
 
     @property
     def gyro(self):
