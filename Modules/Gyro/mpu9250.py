@@ -13,12 +13,12 @@ import struct
 # MPU9250
 ################################
 MPU9250_ADDRESS = 0x68
-AK8963_ADDRESS  = 0x0C
-DEVICE_ID       = 0x73
-WHO_AM_I        = 0x75
-PWR_MGMT_1      = 0x6B
-INT_PIN_CFG     = 0x37
-INT_ENABLE      = 0x38
+AK8963_ADDRESS	= 0x0C
+DEVICE_ID	= 0x73
+WHO_AM_I	= 0x75
+PWR_MGMT_1	= 0x6B
+INT_PIN_CFG	= 0x37
+INT_ENABLE	= 0x38
 # --- Accel ------------------
 ACCEL_DATA    = 0x3B
 ACCEL_CONFIG  = 0x1C
@@ -122,14 +122,14 @@ class mpu9250(object):
 		Reads x, y, and z axes at once and turns them into a tuple.
 		"""
 		# data is MSB, LSB, MSB, LSB ...
-                # For some reason when we read 6 bytes we get (0,0,0,0,0,0)
-                # So we changed it to 7 bytes like in an arduino library we found
-                # And not it works, go figure.
-                data = self.bus.read_i2c_block_data(address, register, 7)
+		# For some reason when we read 6 bytes we get (0,0,0,0,0,0)
+		# So we changed it to 7 bytes like in an arduino library we found
+		# And not it works, go figure.
+		data = self.bus.read_i2c_block_data(address, register, 7)
 
 		# data = []
 		# for i in range(6):
-		# 	data.append(self.read8(address, register + i))
+		#	data.append(self.read8(address, register + i))
 
 		y = self.conv(data[0], data[1])
 		x = self.conv(data[2], data[3])
@@ -148,9 +148,9 @@ class mpu9250(object):
 		"""
 		value = lsb | (msb << 8)
 		# if value >= (1 << 15):
-		# 	value -= (1 << 15)
+		#	value -= (1 << 15)
 		# print(lsb, msb, value)
-                return (-1 * value)
+		return (-1 * value)
 
 	@property
 	def accel(self):
