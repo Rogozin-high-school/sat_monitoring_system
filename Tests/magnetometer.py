@@ -1,6 +1,6 @@
 from ..Modules.Magnetometer import magnetometerMT
 import math
-
+import time
 
 sensor = magnetometerMT.magnetometerMT()
 
