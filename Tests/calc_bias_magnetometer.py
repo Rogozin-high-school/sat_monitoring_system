@@ -8,7 +8,7 @@ axis_names = ['x', 'y', 'z']
 
 try:
     while True:
-        field = sensor.get_axes()
+        field = sensor.readMagnet()
         for axis in bias:
             if axis[0] == None or field[axis] < axis[0]:
                 axis[0] = field[axis]
