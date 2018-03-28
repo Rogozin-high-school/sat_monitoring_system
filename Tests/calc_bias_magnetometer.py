@@ -28,7 +28,7 @@ try:
         else:
             for axis in range(len(axis)):
                 bias[axis][0] = min(field[axis_names[axis]], bias[axis][0])
-                bias[axis][1] = max(field[axis_names[axis]], bias[axis][0])
+                bias[axis][1] = max(field[axis_names[axis]], bias[axis][1])
         time.sleep(0.125)
 
 except KeyboardInterrupt:
