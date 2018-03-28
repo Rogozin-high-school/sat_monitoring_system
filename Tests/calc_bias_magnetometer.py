@@ -31,5 +31,5 @@ try:
 
 except KeyboardInterrupt:
     for axis in range(len(axis_names)):
-        bias = (bias[axis][0] + bias[axis][1]) / 2
+        bias_axis = (bias[axis][0] + bias[axis][1]) / 2
         print(axis_names[axis] + " : " + str(bias))
