@@ -1,8 +1,8 @@
-from ..Modules.Magnetometer import magnetometerMT
+from ..Modules.Magnetometer import magnetometer_factory
 import math
 import time
 
-sensor = magnetometerMT.magnetometerMT()
+sensor = magnetometer_factory.initialize()
 
 shouldRun = True
 

@@ -1,6 +1,6 @@
-from ..Modules.Magnetometer import magnetometerMT
+from ..Modules.Magnetometer import magnetometer_factory
 
-sensor = magnetometerMT.magnetometerMT()
+sensor = magnetometer_factory.initialize()
 
 # A 2D array of size 3 by 2, that would store the max and min values for each axis
 bias = [[None, None], [None, None], [None, None]]
@@ -8,7 +8,7 @@ axis_names = ['x', 'y', 'z']
 
 try:
     while True:
-        field = sensor.mag
+        field = sensor.get_axes()
         for axis in bias:
             if axis[0] == None or field[axis] < axis[0]:
                 axis[0] = field[axis]
