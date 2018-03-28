@@ -8,7 +8,7 @@ shouldRun = True
 
 while shouldRun:
     try :
-        axes = sensor.get_axes()
+        axes = sensor.readMagnet()
         
         print(axes)
         
