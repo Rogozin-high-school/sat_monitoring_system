@@ -1,4 +1,4 @@
-from ..Modules.Magnetometer import magetometerMT
+from ..Modules.Magnetometer import magnetometerMT
 
 sensor = magnetometerMT.magnetometerMT()
 
