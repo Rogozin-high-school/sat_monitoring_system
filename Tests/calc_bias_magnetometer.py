@@ -32,4 +32,4 @@ try:
 except KeyboardInterrupt:
     for axis in range(len(axis_names)):
         bias_axis = (bias[axis][0] + bias[axis][1]) / 2
-        print(axis_names[axis] + " : " + str(bias))
+        print(axis_names[axis] + " : " + str(bias_axis))
