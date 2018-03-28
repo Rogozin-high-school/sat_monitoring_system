@@ -26,6 +26,8 @@ try:
             bias[2][1] = field['z']
 
         else:
+            initialized = True
+
             for axis in range(len(axis)):
                 bias[axis][0] = min(field[axis_names[axis]], bias[axis][0])
                 bias[axis][1] = max(field[axis_names[axis]], bias[axis][1])
