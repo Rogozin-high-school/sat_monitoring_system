@@ -1,4 +1,5 @@
 from ..Modules.Magnetometer import magnetometer_factory
+import time
 
 sensor = magnetometer_factory.initialize()
 
@@ -28,6 +29,7 @@ try:
             for axis in range(len(axis)):
                 bias[axis][0] = min(field[axis_names[axis]], bias[axis][0])
                 bias[axis][1] = max(field[axis_names[axis]], bias[axis][0])
+        time.sleep(0.125)
 
 except KeyboardInterrupt:
     print(bias)
