@@ -9,6 +9,8 @@ initialized = False
 
 
 try:
+    print("Reading magnetometer data")
+
     while True:
         field = sensor.readMagnet()
 
