@@ -12,6 +12,7 @@
 
 import smbus
 import time
+from . import config
 
 ## MPU9250 Default I2C slave address
 SLAVE_ADDRESS        = 0x68
@@ -259,7 +260,7 @@ class MPU9250:
                 y = round(y * self.mres * self.magYcoef, 3)
                 z = round(z * self.mres * self.magZcoef, 3)
 
-        return {"x":x, "y":y, "z":z}
+        return {"x":x + config.X_BIAS, "y":y + config.Y_BIAS, "z":z + config.Z_BIAS}
 
     ## Read temperature
     #  @param [out] temperature temperature(degrees C)

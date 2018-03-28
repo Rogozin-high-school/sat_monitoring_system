@@ -5,8 +5,25 @@ sensor = magnetometer_factory.initialize()
 
 # A 2D array of size 3 by 2, that would store the max and min values for each axis
 bias = [[None, None], [None, None], [None, None]]
-axis_names = ['x', 'y', 'z']
-initialized = False
+axis_names = ('x', 'y', 'z')
+
+# Like min but if one of the values is None then it returns the other one
+def betterMin(value1, value2):
+    if value1 == None and value2 != None:
+        return value2
+    elif value2 == None and value1 != None:
+        return value1
+    else:
+        return min(value1, value2)
+    
+# Like max but if one of the values is None then it returns the other one
+def betterMax(value1, value2):
+    if value1 == None and value2 != None:
+        return value2
+    elif value2 == None and value1 != None:
+        return value1
+    else:
+        return max(value1, value2)
 
 
 try:
@@ -15,27 +32,16 @@ try:
     while True:
         field = sensor.readMagnet()
 
-        if not initialized:
-            bias[0][0] = field['x']
-            bias[0][1] = field['x']
+        for i in range(3):
+            bias[i][0] = betterMin(bias[i][0], field[axis_names[i]])
+            bias[i][1] = betterMax(bias[i][1], field[axis_names[i]])
 
-            bias[1][0] = field['y']
-            bias[1][1] = field['y']
-
-            bias[2][0] = field['z']
-            bias[2][1] = field['z']
-
-        else:
-            initialized = True
-
-            for axis in range(len(axis)):
-                bias[axis][0] = min(field[axis_names[axis]], bias[axis][0])
-                bias[axis][1] = max(field[axis_names[axis]], bias[axis][1])
         time.sleep(0.125)
 
 except KeyboardInterrupt:
     print(bias)
     print("------------------")
-    for axis in range(len(axis_names)):
-        bias_axis = (bias[axis][0] + bias[axis][1]) / 2
-        print(axis_names[axis] + " : " + str(bias_axis))
+
+    print("x:" + str((bias[0][0] + bias[0][1]) / 2))
+    print("y:" + str((bias[1][0] + bias[1][1]) / 2))
+    print("z:" + str((bias[2][0] + bias[2][1]) / 2))
