@@ -1,19 +1,26 @@
-from ..Modules.Magnetometer import magnetometerMT
+from ..Modules.Magnetometer import magnetometer_factory
+import math
+import time
 import math
 
-
-sensor = magnetometerMT.magnetometerMT()
+sensor = magnetometer_factory.initialize()
 
 shouldRun = True
 
 while shouldRun:
     try :
-        axes = sensor.get_axes()
-        x = axes[0]
-        y = axes[1]
-        z = axes[2]
-        length = math.sqrt(x*x + y*y + z*z)
+        axes = sensor.readMagnet()
 
-        print ("x:%8.3f    y:%8.3f    z:%8.3f    length:%8.3f" % (x, y, z, length))
+        squared_sum = 0.0
+
+        for x in axes:
+            axes[x] = round(axes[x], 2)
+            squared_sum += axes[x] ** 2
+        
+
+        print(str(axes) + ", length : " + str(math.sqrt(squared_sum)))
+        
+        
+        time.sleep(0.125)
     except KeyboardInterrupt:
         shouldRun = False
