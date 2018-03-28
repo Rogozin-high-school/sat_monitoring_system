@@ -15,5 +15,7 @@ while shouldRun:
         length = math.sqrt(x*x + y*y + z*z)
 
         print ("x:%8.3f    y:%8.3f    z:%8.3f    length:%8.3f" % (x, y, z, length))
+
+        time.delay(0.125)
     except KeyboardInterrupt:
         shouldRun = False

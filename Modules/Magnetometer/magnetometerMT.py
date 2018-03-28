@@ -12,30 +12,6 @@ class magnetometerMT(magnetometer.magnetometer):
         magnetometer.magnetometer.__init__(self)
         self.lock = threading.Lock()
 
-    def get_x(self):
-        """Reads x axis magnetic field value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_x__()
-        return data
-
-    def get_y(self):
-        """Reads z axis magnetic field value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_y__()
-        return data
-
-    def get_z(self):
-        """Reads z axis magnetic field value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_z__()
-        return data
-
     def get_axes(self):
         """Reads magnetic field in a form of a tuple containing
         x, y and z axis values while keeping your
