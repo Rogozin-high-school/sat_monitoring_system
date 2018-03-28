@@ -7,7 +7,7 @@ Input:
 Output:
     the given vector for the 2nd scale
 '''
-def convert(tilt:numpy.ndarray ,vector:numpy.ndarray) -> numpy.ndarray:
+def convert(tilt:numpy.ndarray, vector:numpy.ndarray) -> numpy.ndarray:
     #this function converts between different scales for a known tilt
     x = vector[0] - tilt[0]
     y = vector[1] - tilt[1]
