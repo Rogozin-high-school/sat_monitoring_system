@@ -28,6 +28,6 @@ try:
                 bias[axis][1] = max(field[axis_names[axis]], bias[axis][0])
 
 except KeyboardInterrupt:
-    for axis in bias:
-        bias = (axis[0] + axis[1]) / 2
+    for axis in range(len(axis_names)):
+        bias = (bias[axis][0] + bias[axis][1]) / 2
         print(axis_names[axis] + " : " + bias)
