@@ -14,8 +14,8 @@ def circular_field(angle:float):
 		x = 1 * (b / abs(b))
 		y = -a/b
 		length = math.sqrt(x**2 + y**2)
-		x = x / length
-		y = y / length
+		x = (x / length) * config.FIELD_SIZE
+		y = (y / length) * config.FIELD_SIZE
 		return (x ,y)
 	else:
 		x = 0
