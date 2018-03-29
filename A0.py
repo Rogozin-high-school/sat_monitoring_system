@@ -18,9 +18,7 @@ while True:
     if len(past) > 5:
         del past[0]
 
-    #//angle = sum(past[i] / (math.sqrt(i)+ 1) for i in range(len(past))) / sum(1 / (math.sqrt(i) + 1) for i in range(len(past)))
-
-    msg = satprot.OutMsg(0,0)
+    msg = satprot.OutMsg(0, 0)
     msg.add_float(0)
     msg.add_float(angle)
     msg.add_float(0)
