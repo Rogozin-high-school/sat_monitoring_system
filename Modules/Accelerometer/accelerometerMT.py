@@ -12,30 +12,6 @@ class accelerometerMT(accelerometer.accelerometer):
         accelerometer.accelerometer.__init__(self)
         self.lock = threading.Lock()
 
-    def get_x(self):
-        """Measures x axis acceleration value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_x__()
-        return data
-
-    def get_y(self):
-        """Measures z axis acceleration value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_y__()
-        return data
-
-    def get_z(self):
-        """Measures z axis acceleration value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_z__()
-        return data
-
     def get_axes(self):
         """Measures acceleration in a form of a tuple containing
         x, y and z axis values while keeping your
