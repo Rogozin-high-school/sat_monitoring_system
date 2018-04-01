@@ -9,6 +9,9 @@ class accelerometer:
         self.sensor = accelerometer_factory.initialize()
 
     def __get_axes__(self):
-        """Measure acceleration in a form of a tuple containing
-        x, y and z axis values"""
+        """
+        Measure acceleration in a form of a tuple containing
+        x, y and z axis values
+        """
+        
         return self.sensor.accel

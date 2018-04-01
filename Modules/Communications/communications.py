@@ -6,6 +6,7 @@ class InMsg(object):
     A message parser for incoming byte-arrays.
     Converts connection messages to message objects.
     """
+
     def __init__(self, body : list, offset : int = 0):
         """
         Initializes a new InMsg object.
@@ -96,6 +97,7 @@ class Connection(object):
     """
     For connecting to services using UDP.
     """
+
     def __init__(self, ip : str, port : int):
         """
         Initializes a connection engine.

@@ -14,11 +14,10 @@ class log:
         # Setting the file name
         self.file_name = file_name
 
-        # Making sure the log file exists
+        # If the file doesn't exist it, creates it
         f = open(self.file_name, 'w+')
         f.close()
 
-    # Writes data to the log file
     def write_to_log(self, text):
         """Write to the log file while keeping multithreading safety"""
         with self.lock:
@@ -26,7 +25,6 @@ class log:
                 current_time = time.strftime("%d/%m/%Y-%H:%M:%S")
                 f.write(current_time + '|' + text + '\n')
 
-    # Returns the logged data in a list, split by lines
     def read_from_log(self):
         """Read from the log file while keeping multithreading safety"""
         data = None
