@@ -3,5 +3,6 @@ class fake_accelerometer:
 
     @property
     def accel(self):
-        """Acceleration tuple of size 3"""
+        """ A tuple contating acceleration values in 3 axis """
+
         return (0, 0, 0)
