@@ -1,4 +1,4 @@
-from ..Modules.Satprot import satprot
+from ..Modules.Communications import communications
 from ..Modules.Magnetometer import magnetometer_factory
 
 import numpy

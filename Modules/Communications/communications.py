@@ -1,71 +1,117 @@
-import threading
-import json
-import socket
+from socket import *
+import struct
 
-from . import config
+class InMsg(object):
+    """
+    A message parser for incoming byte-arrays.
+    Converts connection messages to message objects.
+    """
+    def __init__(self, body : list, offset : int = 0):
+        """
+        Initializes a new InMsg object.
+        Parameters:
+            body    - the byte array containing the body of the message.
+            offset  - the offset of the message to start reading from.
+                      First byte *(body+offset) is the type of the message.
+        """
+        self.body = body
+        self.ptr = 2 + offset
+        self.type = body[0 + offset]
+        self.status = body[1 + offset]
 
-class communications(threading.Thread):
-    def __init__(self, command_handler):
-        threading.Thread.__init__(self)
-        self.should_run = True
-        self.command_handler = command_handler
+    def get_type(self) -> int:
+        """
+        Returns the message type.
+        """
+        return self.type
 
-   
-    # Starts handling http requests
-    def run(self):
-        
-        listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        listen_socket.bind((config.HTTP_HOST, config.HTTP_PORT))
-        listen_socket.listen(1)
-        
-        print("Starting communications module")
-        
-        while self.should_run:
-            client_connection, client_address = listen_socket.accept()
-            request = client_connection.recv(1024)
-            
-            request_split = str(request).split(' ')
-            if len(request_split) <= 1:
-                # Probably not an HTTP packet or something like that
-                continue
+    def get_status(self) -> int:
+        """
+        Returns the message satatus.
+        """
+        return self.status
 
-            # Processing the request and splitting to path and parameters
-            path_and_parameters = request_split[1][1:].split('?')
-            path = path_and_parameters[0]
-            parameters = []
-            parameters_dict = dict()
+    def next_int(self) -> int:
+        """
+        Reads the next parameter from the message as an integer number.
+        """
+        data = self.body[self.ptr : self.ptr + 4]
+        self.ptr += 4
+        data = sum(struct.unpack("I", bytearray(data)))
+        return data
 
-            # Creating a dictionary that contains the parameters data
-            if len(path_and_parameters) == 2:
-                parameters = path_and_parameters[1].split('&')
-                for x in parameters:
-                    split_paramter = x.split("=")
-                    if len(split_paramter) == 2:
-                        parameters_dict[split_paramter[0]] = split_paramter[1]
+    def next_float(self) -> float:
+        """
+        Reads the next parameter from the message as a floating point number.
+        """
+        data = self.body[self.ptr : self.ptr + 4]
+        self.ptr += 4
+        data = sum(struct.unpack("f", bytearray(data)))
+        return data
 
-            print("There was a request to " + path)
+class OutMsg(object):
+    """
+    Constructs messages for sending, and converting message objects to byte arrays.
+    """
+    def __init__(self, _type : int, status : int):
+        """
+        Initializes a new OutMsg object.
+        Parameters:
+            type - the type of the message (single byte int), that will set the 
+                    server's way of reacting to the message.
+            status - the status of the message (single byte int), which is returned
+                    by the server to indicate the result of the required action (if required).
+        """
+        self.type = _type
+        self.status = status
+        self.params = []
+    
+    def add_int(self, i : int):
+        """
+        Adds a new integer parameter to the stream.
+        Parameters:
+            i - the parameter to add.
+        """
+        self.params.append(struct.pack("I", i))
 
-            # Adding HTTP headers
-            http_response = "HTTP/1.1 200 OK\n"
-            http_response += "Content-Type: text/html\n"
-            http_response += "Connection: close\n"
-            http_response += "\n"
-       
-            # Finding matching command handler on the command handlers file
-            if path == "stop":
-                http_response += "Stopping server"
-                self.should_run = False
-            elif hasattr(self.command_handler, path):
-                command_handler = getattr(self.command_handler, path)
-                http_response += command_handler(parameters_dict)
-            else:
-                http_response += "Command not found"
+    def add_float(self, f : float):
+        """
+        Adds a new floating point parameter to the stream.
+        Parameters:
+            f - the parameter to add.
+        """
+        self.params.append(struct.pack("f", f))
 
-            # Sending a response and closing the connection
-            client_connection.sendall(http_response.encode())
-            client_connection.close()
+    def get_bytes(self) -> list:
+        """
+        Gets the byte array encoding of the message. Returns as a list of integers.
+        """
+        body = bytes()
+        for x in self.params:
+            body += x
+        body = struct.pack("I", len(body) + 2) + bytes([self.type, self.status]) + body
+        return body
 
-    # Stops the communications module
-    def stop(self):
-        self.should_run = False
+class Connection(object):
+    """
+    For connecting to services using UDP.
+    """
+    def __init__(self, ip : str, port : int):
+        """
+        Initializes a connection engine.
+        Parmeters:
+            ip - the ip (as a string) of the machine to connect to.
+            port - the port to connect to.
+        """
+        self.soc = socket(AF_INET, SOCK_DGRAM)
+        self.soc.settimeout(1)
+        self.ip = ip
+        self.port = port
+
+    def send(self, msg : OutMsg):
+        """
+        Sends a message using the specified connection tunnel.
+        Parameters:
+            msg - an OutMsg object describing the message to be sent.
+        """
+        self.soc.sendto(msg.get_bytes(), (self.ip, self.port))
