@@ -10,8 +10,10 @@ The structure of the repo is as follows :
 hardware modules. See the Tests section on why this is needed.
 * ```Applications/``` - This directory contains the main code files for the different experiments, the code
 that links between all of the modules.
-* ```run_test.py``` - A script for easily running the tests.
-* ```run_applications.py``` - A script for easily running applications.
+* ```run_test.py``` - A script for easily running the tests, pass it the paramter "pi" after the file name if you run
+it on a raspberry pi.
+* ```run_applications.py``` - A script for easily running applications, pass it the paramter "pi" after the file name if you run
+it on a raspberry pi.
 
 ## Contributions
 If you would like to contribute to the sat_monitoring_system  
