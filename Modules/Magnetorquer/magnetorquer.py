@@ -1,31 +1,28 @@
-from . import hBridge
+from . import HBridge
 from .. import config
 
 import threading
 
 
 class magnetorquer:
-    '''
-    This class is used to create certain field on the magnetorquers on the satellite for each axis.
-    There are 3 axis (x,y,z) and each one could be changed.
-    The init function  initiates the connections of the object to the 3 physical magnetorqures.
-    '''
+    """ This class represents the magnetorquer on the satellite """
+
     def __init__(self):
         """ Initialing an h-bridge for each axis"""
 
-        self.hBridges = dict()
+        self.HBridges = dict()
 
-        hBridges['x'] = hBridge.hBridge(config.X_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+        HBridges['x'] = HBridge.HBridge(config.X_AXIS_H_BRIDGE_DIRECTION_PORT_1,
                 config.X_AXIS_H_BRIDGE_DIRECTION_PORT_2,
                 config.X_AXIS_H_BRIDGE_PWM_PORT_1,
                 config.X_AXIS_H_BRIDGE_PWM_PORT_2)
 
-        hBridges['y'] = hBridge.hBridge(config.Y_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+        HBridges['y'] = HBridge.HBridge(config.Y_AXIS_H_BRIDGE_DIRECTION_PORT_1,
                 config.Y_AXIS_H_BRIDGE_DIRECTION_PORT_2,
                 config.Y_AXIS_H_BRIDGE_PWM_PORT_1,
                 config.Y_AXIS_H_BRIDGE_PWM_PORT_2)
         
-        hBridges['z'] = hBridge.hBridge(config.Z_AXIS_H_BRIDGE_DIRECTION_PORT_1,
+        HBridges['z'] = HBridge.HBridge(config.Z_AXIS_H_BRIDGE_DIRECTION_PORT_1,
                 config.Z_AXIS_H_BRIDGE_DIRECTION_PORT_2,
                 config.Z_AXIS_H_BRIDGE_PWM_PORT_1,
                 config.Z_AXIS_H_BRIDGE_PWM_PORT_2)
@@ -35,7 +32,13 @@ class magnetorquer:
         self.lock = threading.Lock()
    
     def __set_x__(self,x):
-        """This function sets the field value of the x axis magnetorquer"""
+        """
+        This function sets the field value of the x axis magnetorquer
+        
+        parameters :
+        x -- an int representing the direction of the field, 1 - positive, 0 - none, -1 - negative
+
+        """
 
         # Input vaidation
         try:
@@ -47,10 +50,16 @@ class magnetorquer:
             raise ValueError('H Bridge direction is not valid')
         
         self.direction['x'] = x
-        self.hBridges['x'].SetDirection(x)
+        self.HBridges['x'].SetDirection(x)
         
     def __set_y__(self,y):
-        """This function sets the field value of the y axis magnetorquer"""
+        """
+        This function sets the field value of the y axis magnetorquer
+        
+        parameters :
+        y -- an int representing the direction of the field, 1 - positive, 0 - none, -1 - negative
+
+        """
 
         # Input vaidation
         try:
@@ -62,10 +71,16 @@ class magnetorquer:
             raise ValueError('H Bridge direction is not valid')
         
         self.direction['y'] = y
-        self.hBridges['y'].SetDirection(y)
+        self.HBridges['y'].SetDirection(y)
 
     def __set_z__(self,z):
-        """This function sets the field value of the z axis magnetorquer"""
+        """
+        This function sets the field value of the z axis magnetorquer
+        
+        parameters :
+        z -- an int representing the direction of the field, 1 - positive, 0 - none, -1 - negative
+
+        """
 
         # Input vaidation
         try:
@@ -77,7 +92,7 @@ class magnetorquer:
             raise ValueError('H Bridge direction is not valid')
         
         self.direction['z'] = z
-        self.hBridges['z'].SetDirection(z)
+        self.HBridges['z'].SetDirection(z)
 
     # Getters
     def __get_x__(self):
