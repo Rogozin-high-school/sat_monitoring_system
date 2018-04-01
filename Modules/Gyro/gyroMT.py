@@ -12,30 +12,6 @@ class gyroMT(gyro.gyro):
         gyro.gyro.__init__(self)
         self.lock = threading.Lock()
 
-    def get_x(self):
-        """Reads x axis gyro value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_x__()
-        return data
-
-    def get_y(self):
-        """Reads z axis gyro value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_y__()
-        return data
-
-    def get_z(self):
-        """Reads z axis gyro value
-        while keeping your program multithreading safe"""
-        data = None
-        with self.lock:
-            data = self.__get_z__()
-        return data
-
     def get_axes(self):
         """Reads gyro in a form of a tuple containing
         x, y and z axis values while keeping your

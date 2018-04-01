@@ -4,6 +4,7 @@ from . import config
 # without it being loaded
 GPIO_LOADED = False
 
+# Try import raspberry pi's gpio library
 try:
     import RPi.GPIO as GPIO
     GPIO_LOADED = True
@@ -14,6 +15,7 @@ class hBridge:
     '''
     This class is used to create voltage on the magnetorquers that will change the current and thus will change the magnetic field
     '''
+
     def __init__(self, directionPort1, directionPort2, pwmPort1, pwmPort2):
         # Each h-bridge takes 4 ports
         # 2 ports that control the direction (1 port for each direction)
@@ -36,6 +38,7 @@ class hBridge:
             GPIO.setup(pwmPort2, GPIO.OUT)
 
     def __del__(self):
+        """ Releasing GPIO pins when the program ends """
         if GPIO_LOADED:
             GPIO.cleanup()
 

@@ -1,10 +1,10 @@
 from . import config
 
-# Has an initialize method that returns an object representing a magnetomter
+# Has an initialize method that returns an object representing a accelerometer
 # Whether one is connected or not
 
 if config.ACCELEROMETER_CONNECTED:
-    # If the magnetometer is connected
+    # If the accelerometer is connected
 
     from . import mpu9250
 
@@ -14,7 +14,7 @@ if config.ACCELEROMETER_CONNECTED:
     initialize = __init_hardware
 
 else:
-    # If the magnetometer is not connected
+    # If the accelerometer is not connected
 
     from . import fake_accelerometer
 
