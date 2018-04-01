@@ -1,5 +1,5 @@
-from Modules.Satprot import satprot
-from Modules.Magnetometer import magnetometer_factory
+from ..Modules.Satprot import satprot
+from ..Modules.Magnetometer import magnetometer_factory
 
 import numpy
 import time
