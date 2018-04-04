@@ -1,7 +1,9 @@
 import math
 
 from . import config
-
+'''
+returns the vector of the circular field for the given angle of the sattellite location on it's path
+'''
 def circular_field(angle:float):
 
 	angle = math.radians(angle)
