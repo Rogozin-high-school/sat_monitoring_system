@@ -25,6 +25,7 @@ class controller:
             y = (-field[0] - z * field[2]) / field[1]
             return np.array([1,y,z])
 
+
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
 '''
@@ -61,6 +62,7 @@ def get_ratio(time:int)->int:
 '''
 parameters : the angle of the satellite in comparison to the starting point
 output : the vector of the satellite location from earth axis
+changes angle to direction vector
 '''
 def get_angle_vector(angle:int)->numpy.ndarray:
     if((angle / 90) % 2 != 1):
