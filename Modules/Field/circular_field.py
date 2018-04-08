@@ -2,6 +2,10 @@ import math
 
 from . import config
 
+'''
+parameters : the angle of the satellite on it's route
+output : the circular field at this angle 
+'''
 def circular_field(angle:float):
 
 	angle = math.radians(angle)

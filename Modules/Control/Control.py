@@ -16,7 +16,7 @@ class controller:
 
     #TODO: Add offset for meneuvering to certain locations on earth
     def set_control(self, mode=1, offset=[0,0]):
-        #makes the direction change for the measured depolar magnetic field (cos function value)
+        #makes the direction change for the measured circular magnetic field (cos function value)
         if(mode == 1):
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90*60)
@@ -24,9 +24,6 @@ class controller:
             z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2]*torque[1] - field[1]*torque[2])
             y = (-field[0] - z * field[2]) / field[1]
             return np.array([1,y,z])
-        #makes the direction change for circular magnetic field, in order to go by the field
-        elif(mode == 2):
-            return np.array([1,1,1])
 
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
@@ -62,6 +59,8 @@ def get_ratio(time:int)->int:
     return (time % __circle_time) / __circle_time
 
 '''
+parameters : the angle of the satellite in comparison to the starting point
+output : the vector of the satellite location from earth axis
 '''
 def get_angle_vector(angle:int)->numpy.ndarray:
     if((angle / 90) % 2 != 1):
