@@ -8,7 +8,7 @@ __radius = 7370 * 1000
 __circle_time = 90 * 60
 
 class controller:
-    def __init__(self,mode=1):
+    def __init__(self, mode=1:int):
         self.magnetometer = magnetometerMT()
         self.time = time.time()
         #TODO : Add a secondary thread that changes calls setControl
@@ -89,6 +89,6 @@ def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
         b = field[1]
         y = math.sqrt(1 / (a**2 + b**2) )
         x = math.sqrt(a**2 / (a**2 * (a**2 + y**2))
-        temp = math.sqrt(x**2/y**2 + 1)
+        temp = math.sqrt(x**2 / y**2 + 1)
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
