@@ -14,7 +14,7 @@ class controller:
         #TODO : Add a secondary thread that changes calls setControl
         
 
-    #TODO: Add offset for meneuvering to certain locations on earth
+    #TODO: Add offset for maneuvering to certain locations on earth
     def set_control(self, mode=1, offset=[0,0]):
         #makes the direction change for the measured circular magnetic field (cos function value)
         if(mode == 1):
@@ -24,6 +24,7 @@ class controller:
             z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2]*torque[1] - field[1]*torque[2])
             y = (-field[0] - z * field[2]) / field[1]
             return np.array([1,y,z])
+		#TODO : add handling for bipolar field
 
 
 ''''
@@ -34,7 +35,7 @@ def two_demensions_vertical_vector(x:float,y:float):
     return -1 / slowpe
 
 '''
-parameters : time in seconds from measurment start
+parameters : time in seconds from measurement start
 output : the angle of the satellite in comparison to earth
 '''
 def get_angle(time:int)->int:
@@ -42,7 +43,7 @@ def get_angle(time:int)->int:
     return ratio*360
 
 '''
-parameters : time in seconds from measurment start
+parameters : time in seconds from measurement start
 output : the satellite location on the circle route around earth
 '''
 def get_location(time:int)->int:
@@ -52,7 +53,7 @@ def get_location(time:int)->int:
     return ratio*perimeter
 
 '''
-parameters : the time in seconds from measurments start
+parameters : the time in seconds from measurements start
 output : the ratio between the time passed and the circle time
 '''
 def get_ratio(time:int)->int:
@@ -80,10 +81,6 @@ def get_angle_vector(angle:int)->numpy.ndarray:
 #This function gets the satellite location (angle) by the measured  magnetic field
 def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
     if(mode == 1):
-        #This block is for depolar magnetic field
-        #TODO : make this function take care of more than one half situations
-        return math.degrees(math.acos(field.size))
-    elif(mode == 2):
         #This block is for circular magnetic field
         a = field[0]
         b = field[1]
@@ -92,3 +89,5 @@ def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
         temp = math.sqrt(x**2 / y**2 + 1)
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
+		#TODO : add block for bipolar field
+		
