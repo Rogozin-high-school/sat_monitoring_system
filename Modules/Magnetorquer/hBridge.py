@@ -29,8 +29,8 @@ class hBridge:
         self.pwmPort2 = pwmPort2
 
         if GPIO_LOADED:
-            if GPIO.getmode() != GPIO.BOARD:
-                GPIO.setmode(GPIO.BOARD)
+            if GPIO.getmode() != GPIO.BCM:
+                GPIO.setmode(GPIO.BCM)
         
             GPIO.setup(directionPort1, GPIO.OUT)
             GPIO.setup(directionPort2, GPIO.OUT)
