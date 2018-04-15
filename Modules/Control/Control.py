@@ -29,7 +29,7 @@ class controller:
             self.magnetorquer.set_y(arr[1])
             self.magnetorquer.set_z(arr[2])
             time.sleep(config.TIME_DIFFERENCE)
-    #TODO: Add offset for meneuvering to certain locations on earth
+    #TODO: Add offset for maneuvering to certain locations on earth
     def set_control(self, mode=1, offset=[0,0]):
         # makes
         if(mode == 1):
