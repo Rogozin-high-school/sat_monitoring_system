@@ -12,5 +12,4 @@ Output - the location of the satellite on the route in the form of angle
 '''
 
 def get_angle(time:float)->float:
-    nothing = None
     return 360 * get_ratio(time) 
