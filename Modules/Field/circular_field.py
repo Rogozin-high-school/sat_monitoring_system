@@ -22,6 +22,3 @@ def circular_field(angle:float):
 		y = -a * config.FIELD_SIZE
 
 	return (x ,y)
-	
-
-	
