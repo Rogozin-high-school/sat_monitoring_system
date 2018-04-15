@@ -1,6 +1,6 @@
 from ..Magnetometer import magnetometer_factory
 from ..Magnetorquer import magnetorquerMT
-from ..Accelerometer import accelerometer_factory
+from ..Gyro import gyro_factory
 from ..Control import Scale_Convert
 from threading import Thread
 import math
@@ -14,7 +14,7 @@ __circle_time = 90 * 60
 class controller:
     def __init__(self,mode=1):
         self.magnetometer = magnetometer_factory.initialize()
-        self.gyro = accelerometer_factory.initialize()
+        self.gyro = gyro_factory.initialize()
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
         self.time = time.time()
         # secondary thread that changes calls setControl
