@@ -31,7 +31,6 @@ class controller:
             time.sleep(config.TIME_DIFFERENCE)
     #TODO: Add offset for meneuvering to certain locations on earth
     def set_control(self, mode=1, offset=[0,0]):
-        # makes
         if(mode == 1):
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90*60)
@@ -41,8 +40,8 @@ class controller:
             arr = np.ndarray([1,y,z])
             tilt = np.ndarray([self.gyro.accel()])
             return arr - tilt
-        #makes the direction change for circular magnetic field, in order to go by the field
         elif(mode == 2):
+            #makes the direction change for circular magnetic field, in order to go by the field
             return np.array([0,0,1])
 
 ''''
