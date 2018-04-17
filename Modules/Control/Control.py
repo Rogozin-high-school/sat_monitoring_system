@@ -18,7 +18,7 @@ class controller:
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
         self.time = time.time()
         # secondary thread that changes calls setControl
-        thread = Thread(target = set_control ,args = (2,))
+        thread = Thread(target = set_control, args = (2,))
         thread.start()
         thread.join()
 	
@@ -33,7 +33,7 @@ class controller:
     def set_control(self, mode=1, offset=[0,0]):
         if(mode == 1):
             field = self.magnetometer.get_axes()
-            timer = (self.time-time.time()) % (90*60)
+            timer = (self.time-time.time()) % (90 * 60)
             torque = get_angle_vector(get_angle(timer))
             z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2]*torque[1] - field[1]*torque[2])
             y = (-field[0] - z * field[2]) / field[1]
