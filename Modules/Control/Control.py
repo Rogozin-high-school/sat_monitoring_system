@@ -17,7 +17,7 @@ class controller:
         self.gyro = gyro_factory.initialize()
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
         self.time = time.time()
-        # secondary thread that changes calls setControl
+        # Secondary thread that changes calls setControl
         thread = Thread(target = set_control, args = (2,))
         thread.start()
         thread.join()
@@ -41,7 +41,7 @@ class controller:
             tilt = np.ndarray([self.gyro.accel()])
             return arr - tilt
         elif(mode == 2):
-            #makes the direction change for circular magnetic field, in order to go by the field
+            # Makes the direction change for circular magnetic field, in order to go by the field
             return np.array([0,0,1])
 
 ''''
