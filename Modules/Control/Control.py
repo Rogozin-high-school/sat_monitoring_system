@@ -35,7 +35,7 @@ class controller:
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90 * 60)
             torque = get_angle_vector(get_angle(timer))
-            z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2] * torque[1] - field[1] * torque[2])
+            z = (field[1] * torque[0] - filed[0] * torque[1]) / (field[2] * torque[1] - field[1] * torque[2])
             y = (-field[0] - z * field[2]) / field[1]
             arr = np.ndarray([1, y, z])
             tilt = np.ndarray([self.gyro.accel()])
@@ -102,8 +102,8 @@ def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
         #This block is for circular magnetic field
         a = field[0]
         b = field[1]
-        y = math.sqrt(1 / (a**2 + b**2) )
-        x = math.sqrt(a**2 / (a**2 * (a**2 + y**2))
-        temp = math.sqrt(x**2 / y**2 + 1)
+        y = math.sqrt(1 / (a ** 2 + b ** 2) )
+        x = math.sqrt(a ** 2 / (a ** 2 * (a ** 2 + y ** 2))
+        temp = math.sqrt(x ** 2 / y ** 2 + 1)
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
