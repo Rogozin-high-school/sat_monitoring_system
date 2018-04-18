@@ -35,14 +35,14 @@ class controller:
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90 * 60)
             torque = get_angle_vector(get_angle(timer))
-            z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2]*torque[1] - field[1]*torque[2])
+            z = (field[1]*torque[0] - filed[0]*torque[1]) / (field[2] * torque[1] - field[1] * torque[2])
             y = (-field[0] - z * field[2]) / field[1]
-            arr = np.ndarray([1,y,z])
+            arr = np.ndarray([1, y, z])
             tilt = np.ndarray([self.gyro.accel()])
             return arr - tilt
         elif(mode == 2):
             # Makes the direction change for circular magnetic field, in order to go by the field
-            return np.array([0,0,1])
+            return np.array([0, 0, 1])
 
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
@@ -57,7 +57,7 @@ output : the angle of the satellite in comparison to earth
 '''
 def get_angle(time:int)->int:
     ratio = get_ratio(time)
-    return ratio*360
+    return ratio * 360
 
 '''
 parameters : time in seconds from measurment start
@@ -67,7 +67,7 @@ def get_location(time:int)->int:
     global __radius
     ratio = get_ratio(time)
     perimeter = 2 * math.pi * __radius
-    return ratio*perimeter
+    return ratio * perimeter
 
 '''
 parameters : the time in seconds from measurments start
@@ -85,12 +85,12 @@ def get_angle_vector(angle:int)->numpy.ndarray:
         x = 1
         value = 1 / (math.cos(angle) ** 2)
         z = math.sqrt(value-x)
-        return numpy.array([x,0,z])
+        return numpy.array([x, 0, z])
     else:
         if(angle == 90):
-            return numpy.array([0,0,1])
+            return numpy.array([0, 0, 1])
         else:
-            return numpy.array([0,0,-1])
+            return numpy.array([0, 0, -1])
 
 #This function gets the satellite location (angle) by the measured  magnetic field
 def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
@@ -104,6 +104,6 @@ def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
         b = field[1]
         y = math.sqrt(1 / (a**2 + b**2) )
         x = math.sqrt(a**2 / (a**2 * (a**2 + y**2))
-        temp = math.sqrt(x**2/y**2 + 1)
+        temp = math.sqrt(x**2 / y**2 + 1)
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
