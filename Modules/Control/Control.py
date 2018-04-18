@@ -12,7 +12,7 @@ __radius = 7370 * 1000
 __circle_time = 90 * 60
 
 class controller:
-    def __init__(self,mode=1):
+    def __init__(self, mode=1):
         self.magnetometer = magnetometer_factory.initialize()
         self.gyro = gyro_factory.initialize()
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
@@ -84,7 +84,7 @@ def get_angle_vector(angle:int)->numpy.ndarray:
         angle = math.radians(angle)
         x = 1
         value = 1 / (math.cos(angle) ** 2)
-        z = math.sqrt(value-x)
+        z = math.sqrt(value - x)
         return numpy.array([x, 0, z])
     else:
         if(angle == 90):
@@ -93,7 +93,7 @@ def get_angle_vector(angle:int)->numpy.ndarray:
             return numpy.array([0, 0, -1])
 
 #This function gets the satellite location (angle) by the measured  magnetic field
-def get_angle_by_field(field:numpy.ndarray ,mode=1)->float:
+def get_angle_by_field(field:numpy.ndarray, mode=1)->float:
     if(mode == 1):
         #This block is for depolar magnetic field
         #TODO : make this function take care of more than one half situations
