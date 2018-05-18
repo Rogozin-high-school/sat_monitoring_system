@@ -2,47 +2,59 @@ from ..Magnetometer import magnetometer_factory
 from ..Magnetorquer import magnetorquerMT
 from ..Gyro import gyro_factory
 from ..Control import Scale_Convert
+from ..Communications.comm2 import *
 from threading import Thread
 import math
 import numpy
 import time
 
-
 __radius = 7370 * 1000
 __circle_time = 90 * 60
+axes = ["x", "y", "z"]
 
 class controller:
     def __init__(self, mode=1):
+        self.connection = Communication("http://rogozin.space/varserver")
         self.magnetometer = magnetometer_factory.initialize()
         self.gyro = gyro_factory.initialize()
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
         self.time = time.time()
         # Secondary thread that changes calls setControl
-        thread = Thread(target = set_control, args = (2,))
+        thread = Thread(target = move, args = (1,))
         thread.start()
         thread.join()
 	
-    def move(self, mode = 2):
+    def move(self, mode = 1):
         while(True):
-            arr = setControl(mode = mode)
+            self.magnetorquer.set_x(0)
+            self.magnetorquer.set_y(0)
+            self.magnetorquer.set_z(0)
+			#Getting the target vector for the magnetorquer to look at
+            arr = setControl(mode = 1)
+            time.sleep(config.TIME_DIFFERENCE / 3)
+            field = self.magnetometer.get_axes()
+            message = OutMsg()
+            for i in range(len(field)):
+                message.add_var(axes[i], field[i])
+			
             self.magnetorquer.set_x(arr[0])
             self.magnetorquer.set_y(arr[1])
             self.magnetorquer.set_z(arr[2])
+			
             time.sleep(config.TIME_DIFFERENCE)
+			
     #TODO: Add offset for meneuvering to certain locations on earth
     def set_control(self, mode=1, offset=[0,0]):
         if(mode == 1):
             field = self.magnetometer.get_axes()
             timer = (self.time-time.time()) % (90 * 60)
             torque = get_angle_vector(get_angle(timer))
-            z = (field[1] * torque[0] - filed[0] * torque[1]) / (field[2] * torque[1] - field[1] * torque[2])
-            y = (-field[0] - z * field[2]) / field[1]
-            arr = np.ndarray([1, y, z])
+            arr = np.ndarray([torque])
             tilt = np.ndarray([self.gyro.accel()])
             return arr - tilt
         elif(mode == 2):
             # Makes the direction change for circular magnetic field, in order to go by the field
-            return np.array([0, 0, 1])
+            return np.array([1, 1, 0])
 
 ''''
 returns the ratio of y1 to x1 where (x1;y1) is the vertical 2D vector to (x;y) vector
@@ -79,7 +91,7 @@ def get_ratio(time:int)->int:
 
 '''
 '''
-def get_angle_vector(angle:int)->numpy.ndarray:
+def get_angle_vector(angle:int)->numpy.array:
     if((angle / 90) % 2 != 1):
         angle = math.radians(angle)
         x = 1
@@ -103,7 +115,8 @@ def get_angle_by_field(field:numpy.ndarray, mode=1)->float:
         a = field[0]
         b = field[1]
         y = math.sqrt(1 / (a ** 2 + b ** 2) )
-        x = math.sqrt(a ** 2 / (a ** 2 * (a ** 2 + y ** 2))
-        temp = math.sqrt(x ** 2 / y ** 2 + 1)
+        x = math.sqrt(a ** 2 / (a ** 2 * (a ** 2 + y ** 2)))
+        temp = math.sqrt((x ** 2) / (y ** 2 + 1))
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
+
