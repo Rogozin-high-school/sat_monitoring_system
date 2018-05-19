@@ -22,13 +22,13 @@ class DataHub(object):
         self._set = set
 
     def get(self, vars):
-        body = bytes(json.dumps([{"id": x} if type(x) == str else x for x in vars]), "utf-8")
+        body = json.dumps([{"id": x} if type(x) == str else x for x in vars])
         req = urllib2.urlopen(self.addr + self._get, body)
         res = req.read()
         return json.loads(str(res, "utf-8"))
 
     def set(self, vals):
-        body = bytes(json.dumps([{"id": x, "value": y} for x, y in vals.items()]), "utf-8")
+        body = json.dumps([{"id": x, "value": y} for x, y in vals.items()])
         req = urllib2.urlopen(self.addr + self._set, body)
         res = req.read()
-        return json.loads(str(res, "utf-8"))
+        return json.loads(res, "utf-8")
