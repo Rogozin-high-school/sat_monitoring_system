@@ -26,6 +26,7 @@ while True:
 
     if SAT:
         axes = sensor.readMagnet()
+        axes = [axes["x"], axes["y"], axes["z"]]
         magnitude = math.sqrt(sum([x ** 2 for x in axes]))
 
     else:
