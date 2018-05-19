@@ -14,7 +14,7 @@ axes = ["x", "y", "z"]
 
 class controller:
     def __init__(self, mode=1):
-        self.connection = Communication("http://rogozin.space/varserver")
+        self.connection = Connection(get_address())
         self.magnetometer = magnetometer_factory.initialize()
         self.gyro = gyro_factory.initialize()
         self.magnetorquer = magnetorquerMT.magnetorquerMT()
@@ -126,4 +126,6 @@ def get_angle_by_field(field:numpy.ndarray, mode=1)->float:
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
 
-    
+def get_address():
+    con = Connection("http://rogozin.space/varserver")
+    return con.get_var("lab_ip")
