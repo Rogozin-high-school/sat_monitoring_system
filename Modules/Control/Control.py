@@ -34,8 +34,11 @@ class controller:
             time.sleep(config.TIME_DIFFERENCE / 3)
             field = self.magnetometer.get_axes()
             message = OutMsg()
-            for i in range(len(field)):
-                message.add_var(axes[i], field[i])
+            field[1], field[2] = field[2], field[1]
+            #message.add_var("sat_mag", field)
+            thread = Thread(target= message.add_var, args= (field, ))
+            thread.start()
+            thread.join()
 			
             self.magnetorquer.set_x(arr[0])
             self.magnetorquer.set_y(arr[1])
@@ -51,7 +54,10 @@ class controller:
             torque = get_angle_vector(get_angle(timer))
             arr = np.ndarray([torque])
             tilt = np.ndarray([self.gyro.accel()])
-            return arr - tilt
+            arr = arr - tilt
+            for i in range(len(arr)):
+                arr[i] = arr[i] / abs(arr[i])
+            return arr
         elif(mode == 2):
             # Makes the direction change for circular magnetic field, in order to go by the field
             return np.array([1, 1, 0])
@@ -120,3 +126,4 @@ def get_angle_by_field(field:numpy.ndarray, mode=1)->float:
         rad = math.acos(1 / temp)
         return math.degrees(rad) 
 
+    
