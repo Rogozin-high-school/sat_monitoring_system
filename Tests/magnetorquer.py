@@ -1,4 +1,4 @@
-from ..Module.Magnetorquer.hBridge import hBridge
+from ..Modules.Magnetorquer.hBridge import hBridge
 
 a = hBridge(input(), input(), input(), input())
 while True:
