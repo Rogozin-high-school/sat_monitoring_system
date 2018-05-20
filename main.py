@@ -8,6 +8,7 @@ from Modules.DataHub.remote import DataHub
 
 import time
 import math
+import threading
 
 if SAT:
     sensor = magnetometer_factory.initialize()
@@ -31,24 +32,40 @@ def readMagnet():
     else:
         return [[0, 0, 0], 0]
 
-def setMagnetorquer(axis):
-    actuator.SetDirection(axis)
-    time.sleep(0.5)
-    actuator.SetDirection(0)
-    time.sleep(0.05)
+magnetometer_value, magnetorquer_value, _working = None, None, True
+
+def network_thread():
+    global _working, magnetometer_value, magnetorquer_value
+    while _working:
+        try:
+            print("Updating the server with magnetometer value")
+            hub.set({"sat_mag": magnetometer_value})
+        except:
+            print("An error occured while updating the server")
+
+        try:
+            print("Querying the server for magnetorquer commands")
+            magnetorquer_value = hub.get(["sat_magnetorquer"])[0]["content"]
+        except:
+            print("An error occured while querying the server")
+
+t = threading.Thread(target=network_thread)
+t.start()
 
 while True:
+    try:
+        if magnetorquer_value:
+            actuator.SetDirection(magnetorquer_value)
+            time.sleep(0.5)
+            actuator.SetDirection(0)
+            time.sleep(0.05)
+        
+        magnetometer_value = readMagnet()
+        if not magnetorquer_value:
+            time.sleep(0.15)
 
-    print("Trying to read magnetorquer commands")
-    mag = hub.get(["sat_magnetorquer"])[0]
-    print("Received magnetorquer command: " + str(mag))
-    if mag["success"] and mag["content"]:
-        print("Activating magnetorquer")
-        setMagnetorquer(mag["content"])
+    except KeyboardInterrupt:
+        actuator.SetDirection(0)
+        break
 
-    
-    print("Reading magnetometer info")
-    hub.set({"sat_mag": readMagnet()})
-    print("Sent magnetometer info to DataHub")
-
-    time.sleep(0.125)
+_working = False
