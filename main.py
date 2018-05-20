@@ -22,19 +22,33 @@ lab_addr = "http://" + req[0]["content"] + ":" + str(req[1]["content"])
 hub = DataHub(lab_addr)
 hub.set_endpoints("/get", "/set")
 
-while True:
-
+def readMagnet():
     if SAT:
+        global senor
         axes = sensor.readMagnet()
         axes = [axes["x"], axes["y"], axes["z"]]
-        magnitude = math.sqrt(sum([x ** 2 for x in axes]))
-
+        return [axes, 0]
     else:
-        axes = [0, 0, 0]
-        magnitude = 0
+        return [[0, 0, 0], 0]
 
-    print("Updating DataHub")
-    hub.set({"sat_mag": [axes, magnitude], "sat_mag_ping": time.time()})
-    print("Updated DataHub")
+def setMagnetorquer(axis):
+    actuator.SetDirection(axis)
+    time.sleep(0.5)
+    actuator.SetDirection(0)
+    time.sleep(0.05)
 
-    time.sleep(0.1)
+while True:
+
+    print("Trying to read magnetorquer commands")
+    mag = hub.get(["sat_magnetorquer"])[0]
+    print("Received magnetorquer command: " + str(mag))
+    if mag:
+        print("Activating magnetorquer")
+        setMagnetorquer(mag)
+
+    
+    print("Reading magnetometer info")
+    hub.set({"sat_mag": readMagnet()})
+    print("Sent magnetometer info to DataHub")
+
+    time.sleep(0.125)
