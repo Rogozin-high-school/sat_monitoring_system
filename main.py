@@ -34,7 +34,7 @@ while True:
         magnitude = 0
 
     print("Updating DataHub")
-    hub.set({"sat_mag": [axes, magnitude]})
+    hub.set({"sat_mag": [axes, magnitude], "sat_mag_ping": time.time()})
     print("Updated DataHub")
 
     time.sleep(0.1)
