@@ -42,9 +42,9 @@ while True:
     print("Trying to read magnetorquer commands")
     mag = hub.get(["sat_magnetorquer"])[0]
     print("Received magnetorquer command: " + str(mag))
-    if mag:
+    if mag["success"] and mag["content"]:
         print("Activating magnetorquer")
-        setMagnetorquer(mag)
+        setMagnetorquer(mag["content"])
 
     
     print("Reading magnetometer info")
