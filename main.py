@@ -11,7 +11,7 @@ import math
 
 if SAT:
     sensor = magnetometer_factory.initialize()
-    actuator = hBridge(23, 24, 14, 15)
+    actuator = hBridge(21, 5, 16, 20)
 
 hub = DataHub("http://rogozin.space/varserver/")
 
