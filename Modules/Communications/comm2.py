@@ -19,8 +19,12 @@ class Connection:
     def get_var(self, name, password = ''):
         data = bytes(json.dumps([{"id" : name, "password" : password}]), "utf-8")
         res = urllib.request.urlopen(self.url + "/get.php", data)
-        return json.loads(res.read().decode("utf-8"))
-    
+        data = json.loads(res.read().decode("utf-8"))
+        if(data[0]["success"]):
+            return data[0]["content"]
+        else:
+            return None
+		
     def recv():
         return self.res.pop()
 
